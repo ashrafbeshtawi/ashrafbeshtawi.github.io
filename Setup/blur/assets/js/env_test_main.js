@@ -200,7 +200,7 @@ function addJNDQuestion(n,snrLevel){
 	f2=fileName.f(b);;
 
 	text=tempelate.f(n,f1,f2,a,b,height,width);
-	console.log(text);
+
 	console.log("Question "+n+", : A: "+a+", B: "+b);
 
 	$("#cmp-body").append(text);
