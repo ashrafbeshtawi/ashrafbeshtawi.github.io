@@ -1,22 +1,47 @@
 <html>
 <head>
+<link rel="stylesheet" href="css/fps.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/fps.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
 
 <div id="fps"></div>
+<section>
+
+    <div id="heading" class="panel panel-warning">
+      <div class="panel-heading">Screen refresh-rate check</div>
+      <div id="result" class="panel-body">Testing the screen refresh-rate ...</div>
+    </div>
+    <a href="../../index.html">back to main page<a/>
 
 
-<script src="fps.js"></script>
 <script >
 
 // calling the function
 getFPS(sampleCallBackFunction,1);
-
+//Target FPS
+const target=60;
+const tolerantPercent=5;
+const tolerance=target*tolerantPercent/100;
 //sample call back function to print the fps
 function sampleCallBackFunction(fps){
-   document.getElementById("fps").innerHTML="Your FPS is "+fps;
+   //select result & heading
+   let result=document.getElementById("result");
+   let heading=document.getElementById("heading");
+   let myFPS=parseInt(fps);
+   if(myFPS>=target-tolerance){
+      heading.setAttribute("class","panel panel-primary");
+      result.innerHTML=`Screen refresh-rate match the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${fps}`;
+   }else{
+      heading.setAttribute("class","panel panel-danger");
+      result.innerHTML=`Screen refresh-rate is lower than the the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${fps}`;
+   }
+
 }
 </script>
 </body>

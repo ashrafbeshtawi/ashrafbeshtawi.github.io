@@ -356,8 +356,8 @@ function getNextQuestion(){
 var targetSNrLevel=-1;
 function finished(){
 	name=$('#p_name').val();
-	exFileName=name+"_jnd_d3t.csv";
-	template='<h3> <p>Finished!. Please do not close this window, and inform the test moderator. Thanks for your participation. </p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div></h3>';
+	exFileName=name+"_brightness_test.csv";
+	template='<h3> <p>Finished!. Please do not close this window, and inform the test moderator. Thanks for your participation. </p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div><br /> <a href="../../../index.html">Return to main page</a></h3>';
 
 	console.log("jndSuccessAnsPerQuestion: "+ successAnsPerSNRLevel.toString());
 	console.log("questionAsked: "+questionAskedPerSNRLevel.toString());
