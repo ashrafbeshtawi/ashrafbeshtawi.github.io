@@ -18,7 +18,7 @@
     </div>
     <a href="../../index.html">back to main page<a/>
 
-<div id="dpi" style="width: 1cm;"></div>
+<div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
 <script >
 
 // get px in cm 
@@ -29,8 +29,8 @@ let w=screen.width;
 // get screen Height in px
 let h=screen.height;
 // Calculate height and width in cm
-let screenWidth=Math.round(w/PxCm);
-let screenHeight=Math.round(h/PxCm);
+let screenWidth=Math.round(w/PxCm)-3;
+let screenHeight=Math.round(h/PxCm)-3;
 alert(screenHeight+"x"+screenWidth)
 </script>
 </body>
