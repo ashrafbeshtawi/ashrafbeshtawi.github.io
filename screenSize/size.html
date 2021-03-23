@@ -35,9 +35,9 @@ let screenWidth=w/PxCm;
 let screenHeight=h/PxCm;
 
 // correction
-let correction=0.14
-screenWidth=Math.round(screenWidth-correction*screenWidth);
-screenHeight=Math.round(screenHeight-correction*screenHeight);
+let correction=0
+screenWidth=Math.round(screenWidth-correction*screenWidth)-3;
+screenHeight=Math.round(screenHeight-correction*screenHeight)-3;
 
 //showing result
 result.innerHTML=`Screen dimensions (approximately) : ${screenHeight}x${screenWidth} cm <br />
