@@ -1,22 +1,22 @@
 <html>
 <head>
-<link rel="stylesheet" href="css/fps.css">
+
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/fps.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<title>Screen dimensions</title>
 
 </head>
 
 <body>
-<div id="fps"></div>
+<div id="screen size"></div>
 <section>
 
     <div id="heading" class="panel panel-warning">
-      <div class="panel-heading">Screen refresh-rate check</div>
+      <div class="panel-heading">Screen dimensions check</div>
       <div id="result" class="panel-body"></div>
     </div>
-    <a href="../../index.html">back to main page<a/>
+    <a href="../index.html">back to main page<a/>
 
 <div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
 <script >
@@ -26,6 +26,8 @@ let result=document.getElementById("result")
 // getting screen dimensions (working on it)
 // get px in cm 
 let PxCm=document.getElementById("dpi").offsetWidth;
+
+
 // get screen width in px
 let w=screen.width;
 // get screen Height in px
@@ -33,6 +35,8 @@ let h=screen.height;
 // Calculate height and width in cm
 let screenWidth=w/PxCm;
 let screenHeight=h/PxCm;
+
+
 
 // correction
 let correction=0
