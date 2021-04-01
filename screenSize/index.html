@@ -12,16 +12,17 @@
 <div id="screen size"></div>
 <section>
 
-    <div id="heading" class="panel panel-warning">
-      <div class="panel-heading">Screen dimensions check</div>
+    <div id="panelDevice"  class="panel panel-warning">
+      <div  class="panel-heading">Screen dimensions check</div>
       <div id="result" class="panel-body"></div>
     </div>
     <a href="../index.html">back to main page<a/>
 
 <div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
+
 <script >
 //where results should be showen
-let result=document.getElementById("result")
+let resultPlace=document.getElementById("result")
 
 // getting screen dimensions (working on it)
 // get px in cm 
@@ -44,11 +45,22 @@ screenWidth=Math.round(screenWidth-correction*screenWidth)-3;
 screenHeight=Math.round(screenHeight-correction*screenHeight)-3;
 
 //showing result
-let pc=screenWidth>screenHeight && screenWidth>30
-result.innerHTML=`
-                  Phone: ${!pc} <br />
-                  Desktop: ${pc} <br />`;
+let pc=screenWidth>screenHeight && screenWidth>30;
+showResult(pc,resultPlace);
 
+
+
+
+function showResult(pc,resultPlace){
+  let panel=document.getElementById("panelDevice");
+  if(pc){
+    resultPlace.innerHTML="You are accessing this page with a wide-screen device (Laptop, PC, Notebook)<br />This Device is allowed";
+    panelDevice.setAttribute("class","panel panel-primary");
+  }else{
+    resultPlace.innerHTML="You are accessing this page with a mobile phone<br />This Device is not allowed";
+    panelDevice.setAttribute("class","panel panel-danger");    
+  }
+}
 </script>
 </body>
 
