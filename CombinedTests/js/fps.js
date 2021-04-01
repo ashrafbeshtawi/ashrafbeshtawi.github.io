@@ -19,12 +19,12 @@ class FPS {
   
   let myFPS=null;
   
-  //////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 //////////////////FPS section ////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
 // calling the function to calculate the fps
-getFPS(sampleCallBackFunction,1);
+getFPS(sampleCallBackFunction,2);
 //Target FPS
 const target=60;
 const tolerantPercent=5;
@@ -35,12 +35,15 @@ function sampleCallBackFunction(fps){
    let result=document.getElementById("resultFPS");
    let heading=document.getElementById("panelFPS");
    let myFPS=parseInt(fps);
+   //showing result and calling the correct fail/pass function
    if(myFPS>=target-tolerance){
       heading.setAttribute("class","panel panel-primary");
-      result.innerHTML=`Screen refresh-rate match the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${fps}`;
+      result.innerHTML=`Screen refresh-rate match the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${myFPS}`;
+      TestPassed();
    }else{
       heading.setAttribute("class","panel panel-danger");
-      result.innerHTML=`Screen refresh-rate is lower than the the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${fps}`;
+      result.innerHTML=`Screen refresh-rate is lower than the the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${myFPS}`;
+      TestFailed();
    }
 
 }
