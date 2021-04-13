@@ -1,0 +1,45 @@
+<html>
+
+<head>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <title>Screen dimensions</title>
+
+</head>
+
+<body>
+  <div id="screen size"></div>
+  <section>
+
+    <div id="panelDevice" class="panel panel-warning">
+      <div class="panel-heading">Screen dimensions check</div>
+      <div id="result" class="panel-body"></div>
+    </div>
+    <a href="../index.html">back to main page</a>
+    <p></p>
+    <div id="dpi">.</div>
+
+    <div id="demo"></div>
+    <script>
+      // getting screen dimensions (working on it)
+      // get px in cm 
+      let PxCm = document.getElementById("dpi").offsetWidth;
+
+
+
+
+      var txt = "";
+      txt += "<p>Width: " + screen.width + "</p>";
+      txt += "<p>Height: " + screen.height + "</p>";
+      txt += "<p>innerWidth: " + window.innerWidth + "</p>";
+      txt += "<p>innerHeight: " + window.innerHeight + "</p>";
+      txt += "<p>refrence object: " + PxCm + "</p>";
+
+      document.getElementById("demo").innerHTML = txt;
+    </script>
+</body>
+
+</html>

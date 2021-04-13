@@ -79,8 +79,8 @@ var config ={
     forceRetrainingInHours:1,
     showSetupEveryMinutes:30,
     debug:"false",
-    questionUrls: {{cfg.rating_urls}},
-    trainingUrls: {{cfg.training_urls}},
+    questionUrls: "{{cfg.rating_urls}}",
+    trainingUrls: "{{cfg.training_urls}}",
 
     knownQuestionInTrainingUrl:"{{cfg.training_trap_urls}}",
     knownQuestionInTrainingAns: "{{cfg.training_trap_ans}}",
@@ -90,7 +90,7 @@ var config ={
     goldClipAns:"${gold_clips_ans}",
     randomizeTrainingQuestions:"true",
     randomizeRatingQuestions:"true",
-    allowedMaxHITsInProject:{{cfg.allowed_max_hit_in_project}},
+    allowedMaxHITsInProject:"{{cfg.allowed_max_hit_in_project}}",
 	allowedMaxContinuesSessionDurationInMinutes:45,
 	qualification:{
 		mother_tongue: ["english","en"],
@@ -103,9 +103,9 @@ var config ={
         num4: "{{cfg.num4_ans}}",
         num5: "{{cfg.num5_ans}}"
 	},
-	cmp_correct_answers: {{cfg.cmp_correct_answers}},
-	cmp_max_n_feedback : {{cfg.cmp_max_n_feedback}},
-	cmp_pass_threshold: {{cfg.cmp_pass_threshold}},
+	cmp_correct_answers: "{{cfg.cmp_correct_answers}}",
+	cmp_max_n_feedback : "{{cfg.cmp_max_n_feedback}}",
+	cmp_pass_threshold: "{{cfg.cmp_pass_threshold}}",
 	emailAddress: "{{cfg.contact_email}}"
 }
 
@@ -1017,7 +1017,7 @@ function generate_rating_section(){
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<a data-target="#instruction" data-toggle="collapse" >Instructions for speech quality assessment</a>
+				<a data-target="#instruction" data-toggle="collapse" >Instructions for Video quality assessment</a>
 			</h3>
 		</div>
 		<div  class="panel-collapse collapse in" id="instruction">
@@ -1027,20 +1027,22 @@ function generate_rating_section(){
 
 				<img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/process_3.png" alt="scale" class="center" style='width: 60%' >
 
-				  <p>Welcome! You are about to participate in our speech quality assessment experiment! This HIT has two + two (just every now and then) sections:</p>
+				  <p>Welcome! You are about to participate in our video quality assessment experiment! This HIT has two + two (just every now and then) sections:</p>
 				<ul>
 					<li><b>Qualification (just once):</b> Check if you are eligible to perform these HITs</li>
 					<li><b>Setup (every <b class="setup_time"> 0</b> minutes):</b> Configure your system and validate it by answering 6 questions</li>
 					<li><b>Training (every <b class="training_time"> 0 </b> hour):</b> <b class="question_number_training"> 0 </b> questions, same as "Ratings" but appears just once a day</li>
-					<li><b>Rating:</b> Listen to <b class="question_number"> 0 </b> audio files and give <b>your opinion about the quality of the speech</b> you hear.</li>
+					<li><b>Rating:</b> watch <b class="question_number"> 0 </b> video files and give <b>your opinion about the quality of the video </b> you see.</li>
 				</ul>
-				<p>Note that not all of the speech in these audio files is in English.</p>
+				<p>Note that not all of the speech in these video files is in English.</p>
 				<p>You should follow the below mentioned rules, otherwise your answers will be invalid.</p>
 				<p><b>Rules:</b></p>
 				<ul>
-					<li>You must use a <b>headset</b>, not the loudspeaker: otherwise your response will be rejected</li>
-					<li>You must perform the task in a <b>quiet environment</b></li>
-					<li>Do not change the volume after modifying it in the Setup section.</li>
+					<li>You must use a <b>wide-screen device</b>(Desktop,notebook,..), not a mobile phone: otherwise your response will be rejected</li>
+					<li>You must perform the task in a <b>well lit environment</b></li>
+					<li>Your screen brightness must be adjusted to a comfortable level, so that you can recognise what is being shown on the screen.</li>
+					<li>You must be 50 cm or closer to the screen.</li>
+					<li>Do not change your distance to the screen or the lighting conditions of the room or the screen brightness after modifying it in the Setup section.</li>
 				</ul>
 
 				<p><b>Payment:</b></p>
@@ -1098,22 +1100,22 @@ function generate_rating_section(){
 		</fieldset>
 
 
-		<fieldset class="qualificationFieldset"><label>4.&nbsp; What type of listening devices do you have and able to use now (select all)?</label>
+		<fieldset class="qualificationFieldset"><label>4.&nbsp; What type of devices do you have and able to use now (select all)?</label>
 
 			<div class="table-responsive 4_lds">
 			  <table class="table" border="0" cellpadding="0" cellspacing="0" >
 				<tbody>
 					<tr>
-						<td style="width:25%"> <img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/inear.png" alt="in-ear headphones" width="100px"> </td>
-						<td style="width:25%"> <img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/overear.png" alt="Over-the-ear headphones" width="100px"> </td>
-						<td style="width:25%"> <img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/louadspeaker.png" alt="louadspeaker" width="100px"> </td>
-						<td style="width:25%"> <img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/inbuild.png" alt="inbuild speakers" width="100px"> </td>
+						<td style="width:25%"> <img src="assets/device/desktop.png" alt="desktop" width="100px"> </td>
+						<td style="width:25%"> <img src="assets/device/notebook.png" alt="notebook" width="100px"> </td>
+						<td style="width:25%"> <img src="assets/device/mobile.png" alt="mobile" width="100px"> </td>
+						<td style="width:25%"> <img src="assets/device/tablet.png" alt="tablet" width="100px"> </td>
 					</tr>
 					<tr>
-						<td><div class="checkbox"><label><input type="checkbox" value="in-ear" name="4_ld" required>In-ear headphones</label></div></td>
-						<td><div class="checkbox"><label><input type="checkbox" value="over-ear" name="4_ld" required>Over-the-ear headphones</label></div></td>
-						<td><div class="checkbox"><label><input type="checkbox" value="ex-ls" name="4_ld" required>External loudspeaker</label></div></td>
-						<td><div class="checkbox"><label><input type="checkbox" value="ib-ls" name="4_ld" required>In-build loudspeaker</label></div></td>
+						<td><div class="checkbox"><label><input type="checkbox" value="desktop" name="4_ld" required>Desktop</label></div></td>
+						<td><div class="checkbox"><label><input type="checkbox" value="notebook" name="4_ld" required>Notebook</label></div></td>
+						<td><div class="checkbox"><label><input type="checkbox" value="mobile" name="4_ld" required>Mobile phone</label></div></td>
+						<td><div class="checkbox"><label><input type="checkbox" value="tablet" name="4_ld" required>Tablet</label></div></td>
 					</tr>
 
 				</tbody>
@@ -1138,7 +1140,7 @@ function generate_rating_section(){
 
 		<fieldset class="qualificationFieldset">
 				 <div class="form-group">
-				  <label for="sel2">6.	When was the last time you participated in an <span title="Giving your opinion about an audio sample"><u>audio listening test</u></span>?</label>
+				  <label for="sel2">6.	When was the last time you participated in an <span title="Giving your opinion about an video sample"><u>video rating test</u></span>?</label>
 				  <select class="form-control" id="sel2" name="6_audio_test" required="">
 					<option value="">Please select</option>
 					<option value="0d">Today</option>
@@ -1150,7 +1152,7 @@ function generate_rating_section(){
 				</div>
 		</fieldset>
 
-		<fieldset class="qualificationFieldset"><label>7.&nbsp;Have you ever been directly involved in work connected with assessment of the performance of telephone systems, or related work such as speech coding?</label>
+		<fieldset class="qualificationFieldset"><label>7.&nbsp;Have you ever been directly involved in work connected with the video quality assessment, or related work?</label>
 				<div class="radio">
 				  <label><input type="radio" name="7_working_area" value="Y" required="">Yes</label>
 				</div>
@@ -1161,71 +1163,25 @@ function generate_rating_section(){
 
 		<fieldset class="qualificationFieldset"><label>8.&nbsp; I belive, ...</label>
 				<div class="radio">
-				  <label><input type="radio" name="8_hearing" value="normal" required="">I have a normal hearing ability.</label>
+				  <label><input type="radio" name="8_seeing" value="normal" required="">I have a normal vision.</label>
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="8_hearing" value="mid">I have difficulties keeping up with conversations, especially in noisy surroundings (mid hearing loss).</label>
+				  <label><input type="radio" name="8_seeing" value="moderate">I have moderate low vision.</label>
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="8_hearing" value="moderate">I have difficulty keeping up with conversations when I am not using a hearing aid (moderate hearing loss).</label>
+				  <label><input type="radio" name="8_seeing" value="severe">I have severe low vision.</label>
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="8_hearing" value="severe">I rely on lip-reading even when I am using hearing aids (severe or profound hearing loss). </label>
+				  <label><input type="radio" name="8_seeing" value="blindness">I have total blindness. </label>
 				</div>
 		</fieldset>
 
 
-		<div style="text-align: center;margin:30px;"> <img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/attention.png" alt="attention"> </img> <b>Please wear your headphones now.</b></div>
-
-	   <fieldset class="qualificationFieldset"><label>9.&nbsp;Please adjust the level of your computer to a comfortable level so that you hear the following audio sample very well.</label>
-
-				<p align="center"> <span class="baudio" id="volume" data-src="https://audiosamplesp808.blob.core.windows.net/p808-assets/clips/signal_level.wav" >&nbsp;</span> </p>
 
 
-			<div class="alert alert-warning" role="alert">
-			  <b>NOTE:</b> After that, you are not allowed to change the volume anymore. Otherwise your response will be rejected.
-			</div>
-
-		</fieldset>
-
-		<fieldset class="qualificationFieldset"><label>10.&nbsp;In each of the following tests, you hear combination of three digits (for example 1 5 3), spoken with noise in the background. Simply enter the three numbers that you have understood on the answer box below each audio file. </label>
 
 
-			<div class="row" style="margin: 30px;">
-				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-					<div class="row" style="text-align:center;">
-						<span class="baudio" id="n1" title="" data-src="{{cfg.num1_url}}" >&nbsp;</span>
-					</div>
-					<input type="text" name="num1" required="" class="nospace" autocomplete="off">
-				</div>
-
-				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 rnd">
-					<div class="row" style="text-align:center;">
-						<span class="baudio" id="n2" title="" data-src="{{cfg.num2_url}}" >&nbsp;</span>
-					</div>
-					<input type="text" name="num2" required="" class="nospace" autocomplete="off">
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 rnd">
-					<div class="row"style="text-align:center;">
-						<span class="baudio" id="n3" title="" data-src="{{cfg.num3_url}}" >&nbsp;</span>
-					</div>
-					<input type="text" name="num3" required="" class="nospace" autocomplete="off">
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 rnd">
-					<div class="row"style="text-align:center;">
-						<span class="baudio" id="n4" title="" data-src="{{cfg.num4_url}}" >&nbsp;</span>
-					</div>
-					<input type="text" name="num4" required="" class="nospace" autocomplete="off">
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 rnd">
-					<div class="row" style="text-align:center;">
-						<span class="baudio" id="n5" title="" data-src="{{cfg.num5_url}}" >&nbsp;</span>
-					</div>
-					<input type="text" name="num5" required="" class="nospace" autocomplete="off">
-				</div>
-			</div>
-
-		</fieldset>
+<!--here was part 10-->		
 	  </div>
   </div>
 </div>
@@ -1244,26 +1200,52 @@ function generate_rating_section(){
   </div>
   <div  class="panel-collapse collapse in" id="setup_panel">
 	  <div class="panel-body">
+<!--automatic tests-->	
+		<fieldset class="setupFieldset" ><label>0.&nbsp;Automatic tests.</label>
+			<div id="panelFPS" class="panel panel-warning">
+			<div class="panel-heading">Screen refresh-rate check</div>
+			<div id="resultFPS" class="panel-body">Testing the screen refresh-rate ...</div>
+			</div>
 
-		  <div style="text-align: center;margin:30px;"> <img src="https://audiosamplesp808.blob.core.windows.net/p808-assets/img/attention.png" alt="attention">  <b>Please wear your headphones now. You must <u>wear both earbuds</u>. </b></div>
+			<div id="panelDevice"  class="panel panel-warning">
+			<div  class="panel-heading">Screen dimensions check</div>
+			<div id="resultDevice" class="panel-body"></div>
+			</div>
+			
+			<div id="zoomPanel" class="panel panel-warning">
+				<div class="panel-heading">Screen zoom check</div>
+				<div id="zoomResult" class="panel-body"></div>
+			  </div>
 
-		<fieldset class="setupFieldset" ><label>1.&nbsp;Please adjust the level of your computer to <b>a comfortable level</b> so that you hear the following audio sample very well.</label>
+			<div id="HardwareResult" class="alert alert-warning" role="alert">
+			Hardware Tests are being conducted
+			</div>
 
-			<p align="center"> <span class="baudio" id="volume2" data-src="https://audiosamplesp808.blob.core.windows.net/p808-assets/clips/signal_level.wav" >&nbsp;</span> </p>
+			<!--results of automatic tests-->	
+			 <input type="hidden" id="automaticTests" name="automaticTests" value="false">
+
+
+			<div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
+
+
+		</fieldset>
+			<!--/automatic tests-->	
+		<fieldset class="setupFieldset" ><label>1.&nbsp;Please adjust the level of your computer to <b>a comfortable level</b> so that you see the following video sample very well.</label>
 
 			<div class="alert alert-danger" role="alert">
 			  <b>NOTE:</b> Missing this step can strongly affect quality of your answer.
 			</div>
 
 			<div class="alert alert-warning" role="alert">
-			  After adjusting the level, you are not allowed to change the volume anymore. Otherwise your response will be rejected.
+			  <b>NOTE:</b> After that, you are not allowed to change the distance to the screen or the screen brightness anymore. Otherwise your response will be rejected.
 			</div>
+
 		</fieldset>
 
 
-		<fieldset  class="setupFieldset"><label>2.&nbsp; Please listen to the following audio file and type in the answer to the question: </label>
+		<fieldset  class="setupFieldset"><label>2.&nbsp; Please watch to the following clip and type in the answer to the question: </label>
 
-				<div align="center"> <span class="baudio" id="math1" data-src="${math}" >&nbsp;</span> </div>
+				<div align="center"> <div class="vid" id="kkk" callback=console.log link="assets/video/sample.mp4" width="600" height="400" ></div> </div>
 
 
 		<div align="center">Result: &nbsp; <input id="Math" name="Math" required="" size="10" type="text" onchange="userAnsweringToSetupQuestions()"/> </div>
@@ -1499,4 +1481,40 @@ function generate_rating_section(){
 			</div>
 </section>
 
+
+<!--scripts for automatic tests-->
+<script>
+const NumberOfTests=3;
+const CallBackAllPassed=passedAll;
+const CallBackAnyFailed=AnyFailed;
+
+//all tests were passed
+function passedAll(){
+  let HardwareResult=document.getElementById("HardwareResult");
+  let hiddenResult=document.getElementById("automaticTests");
+
+  hiddenResult.setAttribute("value","true");
+  HardwareResult.setAttribute("class","alert alert-success");
+  HardwareResult.innerHTML="All automatic Tests were passed successfully.";
+
+}
+
+//at least one test failed
+function AnyFailed(){
+  let HardwareResult=document.getElementById("HardwareResult");
+  HardwareResult.setAttribute("class","alert alert-danger");
+  HardwareResult.innerHTML="One or more automatic Tests failed. Please check, which test failed and try again after correcting the error";
+}
+</script>
+
+<script src="assets/js/combinedTests.js"></script>
+<script src="assets/js/fps.js"></script>
+<script src="assets/js/device.js"></script>
+<script src="assets/js/zoom.js"></script>
+<!--/scripts for automatic tests-->
+
+
+<!--scripts for video player -->
+<script src="assets/js/videoComponent.js"></script>
+<!--scripts for video player-->
 
