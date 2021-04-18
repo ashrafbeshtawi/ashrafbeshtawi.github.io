@@ -39,11 +39,12 @@
 
 
 
-    // correction
-    let correction = 0
-    screenWidth = Math.round(screenWidth - correction * screenWidth) - 3;
-    screenHeight = Math.round(screenHeight - correction * screenHeight) - 3;
+    // correcting the values according to the zoom value
+    /// window.devicePixelRatio
+    screenWidth = Math.round(screenWidth*window.devicePixelRatio);
+    screenHeight = Math.round(screenHeight*window.devicePixelRatio);
 
+    console.log(window.navigator.appCodeName);
     //showing result
     let pc = screenWidth > screenHeight && screenWidth > 30;
     showResult(pc, resultPlace);
@@ -55,10 +56,10 @@
       let panel = document.getElementById("panelDevice");
       if (pc) {
         resultPlace.innerHTML =
-          "You are accessing this page with a wide-screen device (Laptop, PC, Notebook)<br />This Device is allowed   :"+screenHeight+"x"+screenWidth;
+          "Screen size:"+screenHeight+"x"+screenWidth+"<br/>You are accessing this page with a wide-screen device (Laptop, PC, Notebook)<br />This Device is allowed";
         panelDevice.setAttribute("class", "panel panel-primary");
       } else {
-        resultPlace.innerHTML = "You are accessing this page with a mobile phone<br />This Device is not allowed ";
+        resultPlace.innerHTML = "Screen size:"+screenHeight+"x"+screenWidth+"<br/>You are accessing this page with a mobile phone<br />This Device is not allowed ";
         panelDevice.setAttribute("class", "panel panel-danger");
       }
     }
