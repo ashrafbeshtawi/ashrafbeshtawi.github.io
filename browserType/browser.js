@@ -9,6 +9,9 @@ class BrowserType {
         //check if chrome
         this.chrome = !!window.chrome;
 
+        //roataion
+        this.rotaion=window.orientation;
+
         this.IE = false;
         this.edge = false;
         this.opera = false;
