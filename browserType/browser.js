@@ -3,7 +3,7 @@ class BrowserType {
         // OS
         this.operatingSystem=navigator.platform;
         // general info
-        this.mobile=window.navigator.userAgent.indexOf("Mobile")>=0?ture:false;
+        this.mobile=window.navigator.userAgent.indexOf("Mobile")>=0?true:false;
         //check if firefox 
         this.firefox = typeof(InstallTrigger)!="undefined"? true : false;
         //check if chrome
