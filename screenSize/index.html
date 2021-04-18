@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/browser.js"></script>
+  <script src="js/screenSize.js"></script>
   <title>Screen dimensions</title>
 
 </head>
@@ -21,45 +23,24 @@
   <div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
 
   <script>
+
+    let screenSize = getScreenSize();
+    let screenHeight = screenSize.height;
+    let screenWidth = screenSize.width;
+
+    let pc = screenWidth > screenHeight && screenWidth > 30;
     //where results should be showen
     let resultPlace = document.getElementById("result")
-
-    // getting screen dimensions (working on it)
-    // get px in cm 
-    let PxCm = document.getElementById("dpi").offsetWidth;
-
-
-    // get screen width in px
-    let w = screen.width;
-    // get screen Height in px
-    let h = screen.height;
-    // Calculate height and width in cm
-    let screenWidth = w / PxCm;
-    let screenHeight = h / PxCm;
-
-
-
-    // correcting the values according to the zoom value
-    /// window.devicePixelRatio
-    screenWidth = Math.round(screenWidth*window.devicePixelRatio);
-    screenHeight = Math.round(screenHeight*window.devicePixelRatio);
-
-    console.log(window.navigator.appCodeName);
-    //showing result
-    let pc = screenWidth > screenHeight && screenWidth > 30;
     showResult(pc, resultPlace);
-
-
-
 
     function showResult(pc, resultPlace) {
       let panel = document.getElementById("panelDevice");
+      resultPlace.innerHTML ="Screen size:" + screenHeight + "x" + screenWidth +"<br/> Width to height ratio: "+screenWidth/screenHeight+"<br/>";
       if (pc) {
-        resultPlace.innerHTML =
-          "Screen size:"+screenHeight+"x"+screenWidth+"<br/>You are accessing this page with a wide-screen device (Laptop, PC, Notebook)<br />This Device is allowed";
+        resultPlace.innerHTML +="You are accessing this page with a wide-screen device (Laptop, PC, Notebook)<br />This Device is allowed";
         panelDevice.setAttribute("class", "panel panel-primary");
       } else {
-        resultPlace.innerHTML = "Screen size:"+screenHeight+"x"+screenWidth+"<br/>You are accessing this page with a mobile phone<br />This Device is not allowed ";
+        resultPlace.innerHTML +="You are accessing this page with a mobile phone<br />This Device is not allowed ";
         panelDevice.setAttribute("class", "panel panel-danger");
       }
     }

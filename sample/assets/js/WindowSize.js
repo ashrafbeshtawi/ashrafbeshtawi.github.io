@@ -1,5 +1,5 @@
     //where results should be showen
-    let zoomResultPlace = document.getElementById("zoomResult")
+    let windowResultPlace = document.getElementById("windowSizeResult")
 
 
 
@@ -31,21 +31,21 @@
     }
 
     //showing result
-    let zoomResult=inRange(wZoom,wiZoom,0.1) && inRange(hZoom,hiZoom,0.1)
-    showZoomResult(zoomResult, zoomResultPlace);
+    let windowResult=inRange(wZoom,wiZoom,0.1) && inRange(hZoom,hiZoom,0.1)
+    showZoomResult(windowResult, windowResultPlace);
 
 
 
 
     function showZoomResult(zoomResult, resultPlace) {
-      let zoomPanel = document.getElementById("zoomPanel");
+      let zoomPanel = document.getElementById("windowSizePanel");
       if (zoomResult) {
         resultPlace.innerHTML =
-          "The page is not zoomed in/out <br />Test passed";
+          "This window of the browser is of maximized size<br />Test passed";
           zoomPanel.setAttribute("class", "panel panel-primary");
           TestPassed();
       } else {
-        resultPlace.innerHTML = "The page is zoomed in/out. This can affect your results in the task.<br />Please adjust your browser setting and try again";
+        resultPlace.innerHTML = "This window is minimized.<br />Please maximize the window size and refresh the page";
         zoomPanel.setAttribute("class", "panel panel-danger");
         TestFailed();
       }

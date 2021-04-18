@@ -1212,9 +1212,14 @@ function generate_rating_section(){
 			<div id="resultDevice" class="panel-body"></div>
 			</div>
 			
-			<div id="zoomPanel" class="panel panel-warning">
-				<div class="panel-heading">Screen zoom check</div>
-				<div id="zoomResult" class="panel-body"></div>
+			<div id="windowSizePanel" class="panel panel-warning">
+				<div class="panel-heading">Window Size check</div>
+				<div id="windowSizeResult" class="panel-body"></div>
+			  </div>
+
+			  <div id="mobilePanel" class="panel panel-warning">
+				<div class="panel-heading">Mobile phone check</div>
+				<div id="mobileResult" class="panel-body"></div>
 			  </div>
 
 			<div id="HardwareResult" class="alert alert-warning" role="alert">
@@ -1484,7 +1489,7 @@ function generate_rating_section(){
 
 <!--scripts for automatic tests-->
 <script>
-const NumberOfTests=3;
+const NumberOfTests=4;
 const CallBackAllPassed=passedAll;
 const CallBackAnyFailed=AnyFailed;
 
@@ -1506,11 +1511,12 @@ function AnyFailed(){
   HardwareResult.innerHTML="One or more automatic Tests failed. Please check, which test failed and try again after correcting the error";
 }
 </script>
-
+<script src="assets/js/utility.js"></script>
 <script src="assets/js/combinedTests.js"></script>
 <script src="assets/js/fps.js"></script>
+<script src="assets/js/screenSize.js"></script>
+<script src="assets/js/WindowSize.js"></script>
 <script src="assets/js/device.js"></script>
-<script src="assets/js/zoom.js"></script>
 <!--/scripts for automatic tests-->
 
 
