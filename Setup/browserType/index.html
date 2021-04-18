@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Detecting browsers</title>
+    <link rel="stylesheet" href="css/fps.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/browser.js"></script>
+</head>
+
+<body>
+
+    <div id="heading" class="panel panel-primary">
+        <div class="panel-heading">Detecting browsers by ducktyping</div>
+        <div id="result" class="panel-body"></div>
+      </div>
+      <a href="../../index.html">back to main page</a>
+
+    
+    <script>
+        let BT=new BrowserType();
+        var output = '';
+        output += 'operating system: ' + BT.operatingSystem + '<br>';  
+        output += 'Is Mobile: ' + BT.mobile + '<br>';     
+        output += 'is Firefox: ' + BT.firefox + '<br>';
+        output += 'is Chrome: ' + BT.chrome + '<br>';
+        output += 'is Internet Explorar: ' + BT.IE + '<br>';
+        document.getElementById("result").innerHTML = output;
+    </script>
+</body>
+
+</html>

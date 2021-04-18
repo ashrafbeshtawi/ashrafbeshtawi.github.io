@@ -14,9 +14,10 @@
   <section>
 
     <div id="zoomPanel" class="panel panel-warning">
-      <div class="panel-heading">Screen zoom check</div>
+      <div class="panel-heading">Window size check</div>
       <div id="zoomResult" class="panel-body"></div>
     </div>
+    <a href="../../index.html">back to main page</a>
   </section>
 
 
@@ -64,10 +65,10 @@
       let zoomPanel = document.getElementById("zoomPanel");
       if (zoomResult) {
         resultPlace.innerHTML =
-          "The page is not zoomed in/out <br />Test passed";
+        "This window of the browser is of maximized size<br />Test passed";
           zoomPanel.setAttribute("class", "panel panel-primary");
       } else {
-        resultPlace.innerHTML = "The page is zoomed in/out. This can affect your results in the task.<br />Please adjust your browser setting and try again";
+        resultPlace.innerHTML = "This window is minimized.<br />Please maximize the window size and refresh the page";
         zoomPanel.setAttribute("class", "panel panel-danger");
       }
     }
