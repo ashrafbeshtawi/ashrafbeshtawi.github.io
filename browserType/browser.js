@@ -3,20 +3,13 @@ class BrowserType {
         // OS
         this.operatingSystem=navigator.platform;
         // general info
-        this.general=window.navigator.userAgent;
+        this.mobile=window.navigator.userAgent.indexOf("Mobile")>=0?ture:false;
         //check if firefox 
         this.firefox = typeof(InstallTrigger)!="undefined"? true : false;
         //check if chrome
         this.chrome = !!window.chrome;
-
-        //roataion
-        this.rotaion=window.orientation;
-
-        this.IE = false;
-        this.edge = false;
-        this.opera = false;
-        this.safari = false;
-
+        //check if Internet explorar
+        this.IE = !!document.documentMode;
     }
 
 }
