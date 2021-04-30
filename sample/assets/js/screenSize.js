@@ -2,9 +2,9 @@
 
 
 // requested mindest width and height here
-let reqWidth=30;
+let reqWidth=config.automatic_test.dimensions.required_width;
 
-let reqHeight=15;
+let reqHeight=config.automatic_test.dimensions.required_height;
 //where results should be showen
 let resultPlace=document.getElementById("resultDevice")
 

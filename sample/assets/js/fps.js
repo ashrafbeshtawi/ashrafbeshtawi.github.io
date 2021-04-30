@@ -26,8 +26,8 @@ class FPS {
 // calling the function to calculate the fps
 getFPS(sampleCallBackFunction,2);
 //Target FPS
-const target=60;
-const tolerantPercent=15;
+const target=config.automatic_test.fps.fps_value;
+const tolerantPercent=config.automatic_test.fps.tolerance_Percent;
 const tolerance=target*(tolerantPercent/100);
 //sample call back function to print the fps
 function sampleCallBackFunction(fps){

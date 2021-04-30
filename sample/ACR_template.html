@@ -106,7 +106,18 @@ var config ={
 	cmp_correct_answers: "{{cfg.cmp_correct_answers}}",
 	cmp_max_n_feedback : "{{cfg.cmp_max_n_feedback}}",
 	cmp_pass_threshold: "{{cfg.cmp_pass_threshold}}",
-	emailAddress: "{{cfg.contact_email}}"
+	emailAddress: "{{cfg.contact_email}}",
+	automatic_test:{
+		number_of_tests:4,
+		fps:{
+			fps_value:60,
+			tolerance_Percent:15
+		},
+		dimensions:{
+			required_width:30,
+			required_height:15,
+		}
+	}
 }
 
 // if performing of this assignment is already counted
@@ -1510,6 +1521,8 @@ function AnyFailed(){
   HardwareResult.setAttribute("class","alert alert-danger");
   HardwareResult.innerHTML="One or more automatic Tests failed. Please check, which test failed and try again after correcting the error";
 }
+
+
 </script>
 <script src="assets/js/utility.js"></script>
 <script src="assets/js/combinedTests.js"></script>
