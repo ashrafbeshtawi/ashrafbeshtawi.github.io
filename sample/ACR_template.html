@@ -8,6 +8,7 @@
 
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/images.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -107,16 +108,46 @@ var config ={
 	cmp_max_n_feedback : "{{cfg.cmp_max_n_feedback}}",
 	cmp_pass_threshold: "{{cfg.cmp_pass_threshold}}",
 	emailAddress: "{{cfg.contact_email}}",
+	// new video quality assessments config
+	// automatic test config
 	automatic_test:{
+		// the total number of tests
 		number_of_tests:4,
+		//Frame-rate test
 		fps:{
+			//the fps needed
 			fps_value:60,
+			//tolerance allowed
 			tolerance_Percent:15
 		},
+		//screen dimensions test
 		dimensions:{
 			required_width:30,
 			required_height:15,
 		}
+	},
+	//sample video to be shown to the participant in the setup section
+	sample_video:"assets/sample_video/sample.mp4",
+
+	// Just noticable difference config
+	// distance from screen (blur)
+	blur:{
+		// path and format of the images to be used
+		path:"assets/jnd_distance",
+		format:"jpg",
+		//SNR pairs (snr1,snr2, correct snr)
+		snr_pairs:[[1,10,10],[2,10,10],[7,4,7]],
+	},
+
+	brightness:{
+		// the numbers in the sample
+		num_array: ["024","093","135","156","246","282","286","289","340","359","401","468","534","591","626","628","680","802","815","913","962"],
+		//number of question to ask
+		number_of_questions:2,
+		SNR_target:8,
+		//max and min Signal to noise ration
+		SNR_max:15,
+		SNR_min:1,
 	}
 }
 
@@ -1246,22 +1277,27 @@ function generate_rating_section(){
 
 		</fieldset>
 			<!--/automatic tests-->	
+			<!--sample video-->	
 		<fieldset class="setupFieldset" ><label>1.&nbsp;Please adjust the level of your computer to <b>a comfortable level</b> so that you see the following video sample very well.</label>
-
-			<div class="alert alert-danger" role="alert">
-			  <b>NOTE:</b> Missing this step can strongly affect quality of your answer.
-			</div>
 
 			<div class="alert alert-warning" role="alert">
 			  <b>NOTE:</b> After that, you are not allowed to change the distance to the screen or the screen brightness anymore. Otherwise your response will be rejected.
 			</div>
+			<div align="center"> <div class="vid" id="sample_video" callback=console.log link="" width="600" height="400" ></div> </div>
 
 		</fieldset>
+			<!--/sample video-->
+			<!--JND distance-->	
+			<div class="alert alert-info" role="alert">For the following <b>four questions</b>, please specify which sample has a better quality compared to the other one from your perspective.</div>
 
+			<fieldset class="setupFieldset" >
+				<label>2.&nbsp; Which sample has a better quality compared to the other one? </label>
+				<div id="JND_distance"></div>
+			</fieldset>
+			<!--/JND distance-->	
 
 		<fieldset  class="setupFieldset"><label>2.&nbsp; Please watch to the following clip and type in the answer to the question: </label>
 
-				<div align="center"> <div class="vid" id="kkk" callback=console.log link="assets/video/sample.mp4" width="600" height="400" ></div> </div>
 
 
 		<div align="center">Result: &nbsp; <input id="Math" name="Math" required="" size="10" type="text" onchange="userAnsweringToSetupQuestions()"/> </div>
@@ -1497,7 +1533,11 @@ function generate_rating_section(){
 			</div>
 </section>
 
-
+<!--script for reading the data from config-->
+<script>
+	//setting the link of sample video in the setupsection
+	let sample_video=document.getElementById("sample_video").setAttribute("link",config.sample_video);
+</script>
 <!--scripts for automatic tests-->
 <script>
 const NumberOfTests=4;
@@ -1536,4 +1576,9 @@ function AnyFailed(){
 <!--scripts for video player -->
 <script src="assets/js/videoComponent.js"></script>
 <!--scripts for video player-->
+
+
+<!--scripts for JND -->
+<script src="assets/js/jnd.js"></script>
+<!--scripts for JND-->
 

@@ -1,0 +1,24 @@
+.row {
+    display: flex;
+    /* maximaize the space between this flex element*/
+    justify-content: space-between;
+
+}
+
+.row_label {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.question{
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+
+}
+
+
+.radio_question{
+    display: flex;
+}
