@@ -137,17 +137,24 @@ var config ={
 		format:"jpg",
 		//SNR pairs (snr1,snr2, correct snr)
 		snr_pairs:[[1,10,10],[2,10,10],[7,4,7]],
+		//the number of correct answers required to pass the blur test
+		correct_answers_requested:2,
+		//allowed distance
+		max_allowed_distance:3,
+		min_allowed_distance:0.5,
 	},
 
 	brightness:{
-		// the numbers in the sample
+		// path and format of the images to be used
+		path:"assets/jnd_brightness",
+		format:"jpg",
+		//SNR levels (for each entry in the array one question will be generated
+		snr:[1,2,4,7],
+		//the number of correct answers required to pass the brightness test
+		correct_answers_requested:3,
+		// the numbers in the sample (dont change anything here)
 		num_array: ["024","093","135","156","246","282","286","289","340","359","401","468","534","591","626","628","680","802","815","913","962"],
-		//number of question to ask
-		number_of_questions:2,
-		SNR_target:8,
-		//max and min Signal to noise ration
-		SNR_max:15,
-		SNR_min:1,
+	
 	}
 }
 
@@ -1270,15 +1277,12 @@ function generate_rating_section(){
 
 			<!--results of automatic tests-->	
 			 <input type="hidden" id="automaticTests" name="automaticTests" value="false">
-
-
 			<div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
-
-
 		</fieldset>
+		<br>
 			<!--/automatic tests-->	
 			<!--sample video-->	
-		<fieldset class="setupFieldset" ><label>1.&nbsp;Please adjust the level of your computer to <b>a comfortable level</b> so that you see the following video sample very well.</label>
+		<fieldset class="setupFieldset" ><label>1.&nbsp;Please adjust your distance from the computer and the brightness of the screen to <b>a comfortable level</b> so that you see the following video sample very well.</label>
 
 			<div class="alert alert-warning" role="alert">
 			  <b>NOTE:</b> After that, you are not allowed to change the distance to the screen or the screen brightness anymore. Otherwise your response will be rejected.
@@ -1286,122 +1290,28 @@ function generate_rating_section(){
 			<div align="center"> <div class="vid" id="sample_video" callback=console.log link="" width="600" height="400" ></div> </div>
 
 		</fieldset>
+		<br>
 			<!--/sample video-->
 			<!--JND distance-->	
-			<div class="alert alert-info" role="alert">For the following <b>four questions</b>, please specify which sample has a better quality compared to the other one from your perspective.</div>
-
+			<div id="jnd_distance_whole">
 			<fieldset class="setupFieldset" >
 				<label>2.&nbsp; Which sample has a better quality compared to the other one? </label>
 				<div id="JND_distance"></div>
+				<input type="hidden" id="jnd_distance_result" name="jnd_distance_result" value="false">
 			</fieldset>
+			</div>
 			<!--/JND distance-->	
 
-		<fieldset  class="setupFieldset"><label>2.&nbsp; Please watch to the following clip and type in the answer to the question: </label>
-
-
-
-		<div align="center">Result: &nbsp; <input id="Math" name="Math" required="" size="10" type="text" onchange="userAnsweringToSetupQuestions()"/> </div>
-
-		</fieldset>
-
-		<div class="alert alert-info" role="alert">For the following <b>four questions</b>, please specify which sample has a better quality compared to the other one from your perspective.</div>
-
-
-		<fieldset  class="setupFieldset"><label>3.&nbsp;Which sample has a better quality compared to the other one? </label>
-
-		<div class="row" style="margin-top:10px;">
-				<div class="col-sm-4">
-					<div align="right"> <span class="baudio" id="CMP1_A" title="Sample A" data-src="${CMP1_A}" >&nbsp;</span> </div>
+			<!--JND brightness-->	
+			<div id="jnd_brightness_whole">
+				<fieldset class="setupFieldset" >
+					<label>3.&nbsp; Enter the number you see in the images in the textbox: </label>
+					<div id="JND_brightness"></div>
+					<input type="hidden" id="jnd_brightness_result" name="jnd_brightness_result" value="false">
+				</fieldset>
 				</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
-					<div align="left"> <span class="baudio" id="CMP1_B" title="Sample B" data-src="${CMP1_B}" >&nbsp;</span> </div>
-				</div>
-		</div>
+			<!--/JND brightness-->			
 
-		<div class="row" >
-				<div class="col-sm-4"></div>
-				<div class="col-sm-5">
-					<div class="radio"><label><input type="radio" name="cmp1" required="" value="a">Quality of <b>Sample A</b> is better.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp1" required="" value="o">Difference is <b>not detectable</b>.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp1" required="" value="b">Quality of <b>Sample B</b> is better.</label></div>
-				</div>
-				<div class="col-sm-3"></div>
-		</div>
-
-		</fieldset>
-
-		<fieldset  class="setupFieldset"><label>4.&nbsp;Which sample has a better quality compared to the other one? </label>
-
-		<div class="row" style="margin-top:10px;">
-				<div class="col-sm-4">
-					<div align="right"> <span class="baudio" id="CMP2_A" title="Sample A" data-src="${CMP2_A}" >&nbsp;</span> </div>
-				</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
-					<div align="left"> <span class="baudio" id="CMP2_B" title="Sample B" data-src="${CMP2_B}" >&nbsp;</span> </div>
-				</div>
-		</div>
-
-		<div class="row" >
-				<div class="col-sm-4"></div>
-				<div class="col-sm-5">
-					<div class="radio"><label><input type="radio" name="cmp2" required="" value="a">Quality of <b>Sample A</b> is better.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp2" required="" value="o">Difference is <b>not detectable</b>.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp2" required="" value="b">Quality of <b>Sample B</b> is better.</label></div>
-				</div>
-				<div class="col-sm-3"></div>
-		</div>
-
-		</fieldset>
-		<fieldset  class="setupFieldset"><label>5.&nbsp;Which sample has a better quality compared to the other one? </label>
-
-		<div class="row" style="margin-top:10px;">
-				<div class="col-sm-4">
-					<div align="right"> <span class="baudio" id="CMP3_A" title="Sample A" data-src="${CMP3_A}" >&nbsp;</span> </div>
-				</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
-					<div align="left"> <span class="baudio" id="CMP3_B" title="Sample B" data-src="${CMP3_B}" >&nbsp;</span> </div>
-				</div>
-		</div>
-
-		<div class="row">
-				<div class="col-sm-4"></div>
-				<div class="col-sm-5">
-					<div class="radio"><label><input type="radio" name="cmp3" required="" value="a">Quality of <b>Sample A</b> is better.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp3" required="" value="o">Difference is <b>not detectable</b>.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp3" required="" value="b">Quality of <b>Sample B</b> is better.</label></div>
-				</div>
-				<div class="col-sm-3"></div>
-		</div>
-
-		</fieldset>
-
-		<fieldset  class="setupFieldset"><label>6.&nbsp;Which sample has a better quality compared to the other one? </label>
-
-
-		<div class="row" style="margin-top:10px;">
-				<div class="col-sm-4">
-					<div align="right"> <span class="baudio" id="CMP4_A" title="Sample A" data-src="${CMP4_A}" >&nbsp;</span> </div>
-				</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
-					<div align="left"> <span class="baudio" id="CMP4_B" title="Sample B" data-src="${CMP4_B}" >&nbsp;</span> </div>
-				</div>
-		</div>
-
-		<div class="row">
-				<div class="col-sm-4"></div>
-				<div class="col-sm-5">
-					<div class="radio"><label><input type="radio" name="cmp4" required="" value="a">Quality of <b>Sample A</b> is better.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp4" required="" value="o">Difference is <b>not detectable</b>.</label></div>
-					<div class="radio"><label><input type="radio" name="cmp4" required="" value="b">Quality of <b>Sample B</b> is better.</label></div>
-				</div>
-				<div class="col-sm-3"></div>
-		</div>
-
-		</fieldset>
 
 	  </div>
   </div>
@@ -1410,30 +1320,6 @@ function generate_rating_section(){
 </section>
 <!-- Setup  ends-->
 
-<!-- Device Check -->
-<section class="container" id="device_check_section">
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title">
-				<a data-target="#device_check" data-toggle="collapse" >Listening device check</a>
-			</h3>
-		</div>
-		<div  class="panel-collapse collapse in" id="device_check">
-			  <div class="panel-body" >
-			  <b>Introduction</b>
-				  <p>We need to check your listening device. It is an automated test using your Web-browser functionality. Please click on <b>Start</b>.
-					  After that, you might see a popup message from your browser asking for allowance to use your microphone.
-					  Please click on <b>Allow</b> (on some of smartphones there will be no message). <u>We do not process or record any audio with your microphone</u>.
-				 <div class="center">
-						<button type="button" class="btn btn-primary center" onclick="startHeadsetCheck()">Start</button>
-						<div id="status"> </div>
-			  	</div>
-			</div>
-		</div>
-
-	</div>
-</section>
-<!-- Device Check ends-->
 
 <!-- Training section, appears once a day-->
 <section class="container" id="training">
@@ -1579,6 +1465,7 @@ function AnyFailed(){
 
 
 <!--scripts for JND -->
-<script src="assets/js/jnd.js"></script>
+<script src="assets/js/jnd_distance.js"></script>
+<script src="assets/js/jnd_brightness.js"></script>
 <!--scripts for JND-->
 

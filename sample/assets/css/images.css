@@ -22,3 +22,8 @@
 .radio_question{
     display: flex;
 }
+
+.input_question{
+    display: flex;
+    padding: 5px;
+}
