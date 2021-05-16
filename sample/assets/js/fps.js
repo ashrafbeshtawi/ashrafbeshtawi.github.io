@@ -40,11 +40,11 @@ function sampleCallBackFunction(fps){
    if(myFPS>=target-tolerance){
 
       heading.setAttribute("class","panel panel-primary");
-      result.innerHTML=`Screen refresh-rate match the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${myFPS}`;
+      result.innerHTML=config.automatic_test.fps.success;
       TestPassed();
    }else{
       heading.setAttribute("class","panel panel-danger");
-      result.innerHTML=`Screen refresh-rate is lower than the the target-rate: <br />Target-Rate: ${target}<br />Your screen refresh-Rate: ${myFPS}`;
+      result.innerHTML=config.automatic_test.fps.fail;
       TestFailed();
    }
 

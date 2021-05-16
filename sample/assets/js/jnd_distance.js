@@ -144,16 +144,16 @@ return  `
     </div>
     <div class="question" id="blur_${question_number}" correct="${correct_answer}">
         <div class="radio_question">
-            <input type="radio" id="blur_${question_number}_first" name="blur_${question_number}_first" value="first">
+            <input type="radio" id="blur_${question_number}_first" name="blur_${question_number}" value="first">
             <label  for="blur_${question_number}_first"> &nbsp; Quality of Image A is better.</label>
         </div>
 
         <div class="radio_question">
-        <input type="radio" id="blur_${question_number}_second" name="blur_${question_number}_second" value="second">
+        <input type="radio" id="blur_${question_number}_second" name="blur_${question_number}" value="second">
         <label  for="blur_${question_number}_second" >&nbsp;Quality of Image B is better.</label>
         </div>
         <div class="radio_question">
-        <input type="radio" id="blur_${question_number}_undetectable" name="blur_${question_number}_undetectable" value="undetectable">
+        <input type="radio" id="blur_${question_number}_undetectable" name="blur_${question_number}" value="undetectable">
         <label for="blur_${question_number}_undetectable" >&nbsp; Difference is not detectable.</label>
         </div>
     </div>

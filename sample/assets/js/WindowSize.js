@@ -31,7 +31,14 @@
     }
 
     //showing result
-    let windowResult=inRange(wZoom,wiZoom,0.1) && inRange(hZoom,hiZoom,0.1)
+    let windowResult;
+    if(config.automatic_test.window.maximized){
+      windowResult=inRange(wZoom,wiZoom,0.1) && inRange(hZoom,hiZoom,0.1)
+    }else{
+      //if the window does not have to be maximized the automaticly pass the test
+      windowResult=true
+    }
+
     showZoomResult(windowResult, windowResultPlace);
 
 
@@ -40,12 +47,11 @@
     function showZoomResult(zoomResult, resultPlace) {
       let zoomPanel = document.getElementById("windowSizePanel");
       if (zoomResult) {
-        resultPlace.innerHTML =
-          "This window of the browser is of maximized size<br />Test passed";
+        resultPlace.innerHTML =config.automatic_test.window.success;
           zoomPanel.setAttribute("class", "panel panel-primary");
           TestPassed();
       } else {
-        resultPlace.innerHTML = "This window is minimized.<br />Please maximize the window size and refresh the page";
+        resultPlace.innerHTML = config.automatic_test.window.fail;
         zoomPanel.setAttribute("class", "panel panel-danger");
         TestFailed();
       }

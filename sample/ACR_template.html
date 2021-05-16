@@ -80,8 +80,8 @@ var config ={
     forceRetrainingInHours:1,
     showSetupEveryMinutes:30,
     debug:"false",
-    questionUrls: "{{cfg.rating_urls}}",
-    trainingUrls: "{{cfg.training_urls}}",
+    questionUrls: ["assets/sample_video/sample.mp4"],
+    trainingUrls: ["assets/sample_video/sample.mp4"],
 
     knownQuestionInTrainingUrl:"{{cfg.training_trap_urls}}",
     knownQuestionInTrainingAns: "{{cfg.training_trap_ans}}",
@@ -113,18 +113,52 @@ var config ={
 	automatic_test:{
 		// the total number of tests
 		number_of_tests:4,
+		//show detailed results about the reults of each test to the user
+		general:{
+			//show the result of rach test
+			show_details:false,
+			//success and fail messages
+			fail:"One or more automatic tests failed. The cause might be your screen refresh-rate, the screen size, the size of the browser's window or the device you are using",
+			success:"Automatic Tests passed. Please continue",
+		},
+
 		//Frame-rate test
 		fps:{
 			//the fps needed
 			fps_value:60,
 			//tolerance allowed
-			tolerance_Percent:15
+			tolerance_Percent:15,
+			//success and fail messages
+			fail:"Your Screen Framerate does not match the requirments for this task",
+			success:"Screen Framerate Test passed. Please continue",
 		},
 		//screen dimensions test
 		dimensions:{
 			required_width:30,
 			required_height:15,
+			//success and fail messages
+			fail:"Your Screen Dimesions do not match the requirments for this task",
+			success:"Screen Dimesions Test passed. Please continue",
+		},
+		//window size
+		window:{
+			//should the brwoser's window be maximaized in size 
+			maximized:true,
+			//success and fail messages
+			fail:"Your Browsers' window size does not match the requirments for this task",
+			success:"Browsers' window size Test passed. Please continue",
+		},
+		//device check allowes to choose which devices are allowed to participate
+		device:{
+			//pc is allowd
+			pc:true,
+			//mobile is not allowed
+			mobile:false,
+			//success and fail messages
+			fail:"Your Device Type does not match the requirments for this task",
+			success:"Device Test passed. Please continue",			
 		}
+
 	},
 	//sample video to be shown to the participant in the setup section
 	sample_video:"assets/sample_video/sample.mp4",
@@ -837,12 +871,12 @@ var problematic_urls="";
 	Called when the scale item is clicked
 */
 function alertForbiddenChange(){
-	alert('You should listen until the end.');
+	alert('You should watch the clip until the end.');
 	$(this).prop('checked', false);
 }
 
 /*
-	Users should not be able to vot before listening the audio clips until the end.
+	Users should not be able to vot before watching the clips until the end.
 */
 function avoidAnsweringBeforeListeningThrough(){
 	var i;
@@ -898,7 +932,8 @@ function onValueChangeForTpQuestionInTraining(){
 	Called when the audio in rating section by the given id is completely played.
 	Now user can rate the quality.
 */
-function playedAudioQ(id){
+function playedVideoQ(id){
+	console.log("ID:"+id);
 	// parallel session check
 	isAnyParallelSession();
 	// check if it was the trapping question
@@ -931,51 +966,7 @@ function userAnsweringToSetupQuestions(){
 
 </script>
 
-<script type="text/javascript">
 
-/*
-	functions responsible to headset check
-*/
-function isHeadsetOn(webrtc_raw){
-	keywords= ["headphone",  "headset","airpod", "usb audio device"]
-	for (var i = 0; i < keywords.length; i++) {
-		if (webrtc_raw.includes(keywords[i]))
-			return true;
-	}
-	return false;
-}
-
-const constraints = {
-  	audio: true,
-	video:false
-};
-
-/*
-	Async function to check the list of audio devices when the user allowed
-*/
-const startHeadsetCheck = async function() {
-	$('#status').html("waiting for allowance...")
-    await navigator.mediaDevices.getUserMedia(constraints);
-
-    navigator.mediaDevices.enumerateDevices()
-    .then(devices => {
-        var device_list= "";
-        for (var i=0;i<devices.length;i++){
-        	if (devices[i].kind.startsWith('audio')){
-    			device_list = device_list+ devices[i].kind + ":" +devices[i].label.toLowerCase() +"+";
-    		}
-        }
-        headsetDetected=isHeadsetOn(device_list);
-        $( "#webrtc_raw" ).val(device_list);
-        $( "#use_headset" ).val(headsetDetected);
-		$( "#status" ).html("Done. Please continue.");
-  });
-}
-
-//function startMeasure(){
-// 	startHeadsetCheck();
-//}
-</script>
 
 <script type="text/javascript">
 
@@ -998,7 +989,7 @@ function shuffle(a) {
 */
 function generate_training_section(){
 	acr_nav_tab = '<li class="nav-item {1}"><a class="nav-link " data-toggle="tab"  href="#T{0}-panel" id="T{0}-tab " role="tab" aria-controls="T{0}" {2}>Q. {0}</a></li>';
-	acr_tab ='<div class="tab-pane fade {2}" id="T{0}-panel" role="tabpanel" aria-labelledby="T{0}-tab"><p></p><div class="row">	<div class="col-sm-3"></div>	<div class="col-sm-6">		<p style="margin-top:10px;">{0}. How do you rate the <b>overall quality</b> of the following speech sample? </p><p align="center"> <span class="baudio" id="t{0}" data-onfinished="playedAudioTraining" data-src="{1}" >&nbsp;</span> </p><fieldset id="fieldset_t{0}" class="trainingFieldset" title=""><table class="table md scale" cellspacing="0" cellpadding="0">			<thead><tr><th >Quality of the speech</th><th class="c" >Score</th></tr>			</thead>			<tbody><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="5">Excellent</label></div></td><td class="c">5</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="4">Good</label></div></td><td class="c">4</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="3">Fair</label></div></td><td class="c">3</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="2">Poor</label></div></td><td class="c">2</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr>	   </tbody></table>		</fieldset><p></p> </div> 	<div class="col-sm-3"></div></div> <p></p> </div>';
+	acr_tab ='<div class="tab-pane fade {2}" id="T{0}-panel" role="tabpanel" aria-labelledby="T{0}-tab"><p></p><div class="row">	<div class="col-sm-3"></div>	<div class="col-sm-6">		<p style="margin-top:10px;">{0}. How do you rate the <b>overall quality</b> of the following video sample? </p><p align="center"> <div class="vid" id="t{0}" callback="playedVideoQ" link="{1}" width="600" height="400" ></div> </p><fieldset id="fieldset_t{0}" class="trainingFieldset" title=""><table class="table md scale" cellspacing="0" cellpadding="0">			<thead><tr><th >Quality of the Video</th><th class="c" >Score</th></tr>			</thead>			<tbody><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="5">Excellent</label></div></td><td class="c">5</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="4">Good</label></div></td><td class="c">4</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="3">Fair</label></div></td><td class="c">3</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="2">Poor</label></div></td><td class="c">2</td></tr><tr><td><div class="radio" ><label ><input type="radio" name="t{0}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr>	   </tbody></table>		</fieldset><p></p> </div> 	<div class="col-sm-3"></div></div> <p></p> </div>';
 	// this will show which url was shown by in which question as their orther will be randomized
 	input_template= '<input id="T{0}_URL" name="T{0}_URL" type="hidden" value="{1}" />';
 
@@ -1027,7 +1018,7 @@ function generate_training_section(){
 */
 function generate_rating_section(){
 	acr_nav_tab = '<li class="nav-item {1}"><a class="nav-link" data-toggle="tab" href="#Q{0}-panel" id="Q{0}-tab" role="tab" aria-controls="Q{0}" {2}>Q. {0}</a></li>';
-	acr_tab ='<div class="tab-pane fade {2}" id="Q{0}-panel" role="tabpanel" aria-labelledby="q{0}-tab"> <p></p> <div class="row"> <div class="col-sm-3"></div> <div class="col-sm-6"> <p style="margin-top:10px;">{0}. How do you rate the <b>overall quality</b> of the following speech sample? </p> <p align="center"> <span class="baudio" id="q{0}" data-onfinished="playedAudioQ" data-src="{1}" >&nbsp;</span> </p> <fieldset id="fieldset_q{0}" title=""> <table class="table md scale" cellspacing="0" cellpadding="0"> <thead> <tr><th >Quality of the speech</th><th class="c" >Score</th></tr> </thead> <tbody> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="5">Excellent</label></div></td><td class="c">5</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="4">Good</label></div></td><td class="c">4</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="3">Fair</label></div></td><td class="c">3</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="2">Poor</label></div></td><td class="c">2</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr> </tbody> </table> </fieldset> <p></p> </div> <div class="col-sm-3"></div> </div> <p></p> </div>';
+	acr_tab ='<div class="tab-pane fade {2}" id="Q{0}-panel" role="tabpanel" aria-labelledby="q{0}-tab"> <p></p> <div class="row"> <div class="col-sm-3"></div> <div class="col-sm-6"> <p style="margin-top:10px;">{0}. How do you rate the <b>overall quality</b> of the following video sample? </p> <p align="center"> <div class="vid" id="q{0}" callback="playedVideoQ" link="{1}" width="600" height="400" ></div> </p> <fieldset id="fieldset_q{0}" title=""> <table class="table md scale" cellspacing="0" cellpadding="0"> <thead> <tr><th >Quality of the speech</th><th class="c" >Score</th></tr> </thead> <tbody> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="5">Excellent</label></div></td><td class="c">5</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="4">Good</label></div></td><td class="c">4</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="3">Fair</label></div></td><td class="c">3</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="2">Poor</label></div></td><td class="c">2</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{0}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr> </tbody> </table> </fieldset> <p></p> </div> <div class="col-sm-3"></div> </div> <p></p> </div>';
 	// this will show which url was shown by in which question as their orther will be randomized
 	input_template= '<input id="Q{0}_URL" name="Q{0}_URL" type="hidden" value="{1}" />';
 	if (JSON.parse(config['randomizeRatingQuestions'])){
@@ -1190,7 +1181,7 @@ function generate_rating_section(){
 		<fieldset class="qualificationFieldset">
 				 <div class="form-group">
 				  <label for="sel2">6.	When was the last time you participated in an <span title="Giving your opinion about an video sample"><u>video rating test</u></span>?</label>
-				  <select class="form-control" id="sel2" name="6_audio_test" required="">
+				  <select class="form-control" id="sel2" name="6_video_test" required="">
 					<option value="">Please select</option>
 					<option value="0d">Today</option>
 					<option value="3d">In last 3 days</option>
@@ -1212,20 +1203,38 @@ function generate_rating_section(){
 
 		<fieldset class="qualificationFieldset"><label>8.&nbsp; I belive, ...</label>
 				<div class="radio">
-				  <label><input type="radio" name="8_seeing" value="normal" required="">I have a normal vision.</label>
+				  <label><input type="checkbox" name="8_seeing" value="normal" required="">&nbsp;I have a normal vision.</label>
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="8_seeing" value="moderate">I have moderate low vision.</label>
+				  <label><input type="checkbox" name="8_seeing" value="nearsightedness">&nbsp;I have nearsightedness.</label>
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="8_seeing" value="severe">I have severe low vision.</label>
+				  <label><input type="checkbox" name="8_seeing" value="farsightedness">&nbsp;I have farsightedness.</label>
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="8_seeing" value="blindness">I have total blindness. </label>
+				  <label><input type="checkbox" name="8_seeing" value="Diabetic_retinopathy">&nbsp;I have Diabetic retinopathy. </label>
 				</div>
+				<div class="radio">
+					<label><input type="checkbox" name="8_seeing" value="blindness">&nbsp;I have complete blindness. </label>
+				  </div>
 		</fieldset>
 
 
+		<fieldset class="qualificationFieldset"><label>8.&nbsp; I belive, ...</label>
+			<div class="radio">
+			<div class="radio">
+				<label><input type="radio" name="9_color_blindness" value="no_color_blindness">I have no color blindness.</label>
+			</div>
+			  <label><input type="radio" name="9_color_blindness" value="Red_green_blindness">I have Red green color blindness.</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="9_color_blindness" value="Blue_yellow_blindness">I have Blue yellow color blindness.</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="9_color_blindness" value="Complete_color_blindness">I have Complete color blindness.</label>
+			</div>
+
+	</fieldset>
 
 
 
@@ -1251,25 +1260,27 @@ function generate_rating_section(){
 	  <div class="panel-body">
 <!--automatic tests-->	
 		<fieldset class="setupFieldset" ><label>0.&nbsp;Automatic tests.</label>
-			<div id="panelFPS" class="panel panel-warning">
-			<div class="panel-heading">Screen refresh-rate check</div>
-			<div id="resultFPS" class="panel-body">Testing the screen refresh-rate ...</div>
-			</div>
+			<div id="automaticTests_div">
+				<div id="panelFPS" class="panel panel-warning">
+				<div class="panel-heading">Screen refresh-rate check</div>
+				<div id="resultFPS" class="panel-body">Testing the screen refresh-rate ...</div>
+				</div>
 
-			<div id="panelDevice"  class="panel panel-warning">
-			<div  class="panel-heading">Screen dimensions check</div>
-			<div id="resultDevice" class="panel-body"></div>
-			</div>
-			
-			<div id="windowSizePanel" class="panel panel-warning">
-				<div class="panel-heading">Window Size check</div>
-				<div id="windowSizeResult" class="panel-body"></div>
-			  </div>
+				<div id="panelDevice"  class="panel panel-warning">
+				<div  class="panel-heading">Screen dimensions check</div>
+				<div id="resultDevice" class="panel-body"></div>
+				</div>
+				
+				<div id="windowSizePanel" class="panel panel-warning">
+					<div class="panel-heading">Window Size check</div>
+					<div id="windowSizeResult" class="panel-body"></div>
+				</div>
 
-			  <div id="mobilePanel" class="panel panel-warning">
-				<div class="panel-heading">Mobile phone check</div>
-				<div id="mobileResult" class="panel-body"></div>
-			  </div>
+				<div id="mobilePanel" class="panel panel-warning">
+					<div class="panel-heading">Mobile phone check</div>
+					<div id="mobileResult" class="panel-body"></div>
+				</div>
+			</div>
 
 			<div id="HardwareResult" class="alert alert-warning" role="alert">
 			Hardware Tests are being conducted
@@ -1331,8 +1342,8 @@ function generate_rating_section(){
 			</div>
 			<div  class="panel-collapse collapse in" id="trainingS">
 				<div class="panel-body">
-				<p> Please answer the following <b class="question_number_training"> 0 </b> questions. For each question, please listen to the audio sample and give your opinion about the quality of the speech you hear on the following scale. <b>Note</b> that the scale will be activated when the speech sample played until the end. In case you hear an interruption message, please follow the instruction given in the message.</p>
-				<p> There is no right or wrong answer as long as you listen to the audio files and give your opinion.</p>
+				<p> Please answer the following <b class="question_number_training"> 0 </b> questions. For each question, please watch to the video sample and give your opinion about the quality of the video you see on the following scale. <b>Note</b> that the scale will be activated when the video sample played until the end. In case you see an interruption message, please follow the instruction given in the message.</p>
+				<p> There is no right or wrong answer as long as you watch to the video files and give your opinion.</p>
 
  				<!-- will be generated -->
 				<ul class="nav nav-tabs" role="tablist" id="trainingTabs">
@@ -1374,8 +1385,8 @@ function generate_rating_section(){
 				<h3 class="panel-title">Ratings</h3>
 			</div>
 			<div class="panel-body">
-				<p> Please answer the following <b class="question_number"> 0 </b> questions. For each question, please listen to the audio sample and give your opinion about the quality of the speech you hear on the following scale. <b>Note</b> that the scale will be activated when the speech sample played until the end. In case you hear an interruption message, please follow the instruction given in the message.</p>
-				<p> There is no right or wrong answer as long as you listen to the audio files and give your opinion.</p>
+				<p> Please answer the following <b class="question_number"> 0 </b> questions. For each question, please watch to the video sample and give your opinion about the quality of the video you see on the following scale. <b>Note</b> that the scale will be activated when the video sample played until the end. In case you see an interruption message, please follow the instruction given in the message.</p>
+				<p> There is no right or wrong answer as long as you watch to the video files and give your opinion.</p>
 
  				<!-- will be generated -->
 				<ul class="nav nav-tabs" role="tablist" id="nav-tab-ul"> </ul>
@@ -1426,9 +1437,17 @@ function generate_rating_section(){
 </script>
 <!--scripts for automatic tests-->
 <script>
-const NumberOfTests=4;
+const NumberOfTests=config.automatic_test.number_of_tests;
 const CallBackAllPassed=passedAll;
 const CallBackAnyFailed=AnyFailed;
+
+//hide the automatic tests if the config say so
+if(!config.automatic_test.general.show_details){
+	let tests_div=document.getElementById("automaticTests_div");
+	tests_div.setAttribute("style","display: none;");
+}
+
+
 
 //all tests were passed
 function passedAll(){
@@ -1437,7 +1456,7 @@ function passedAll(){
 
   hiddenResult.setAttribute("value","true");
   HardwareResult.setAttribute("class","alert alert-success");
-  HardwareResult.innerHTML="All automatic Tests were passed successfully.";
+  HardwareResult.innerHTML=config.automatic_test.general.success;
 
 }
 
@@ -1445,7 +1464,7 @@ function passedAll(){
 function AnyFailed(){
   let HardwareResult=document.getElementById("HardwareResult");
   HardwareResult.setAttribute("class","alert alert-danger");
-  HardwareResult.innerHTML="One or more automatic Tests failed. Please check, which test failed and try again after correcting the error";
+  HardwareResult.innerHTML=config.automatic_test.general.fail;
 }
 
 

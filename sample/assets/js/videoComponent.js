@@ -1,6 +1,7 @@
 // the script should be included in the head
+//jquery is needed
 
-
+$(function() {
 //main script loader
 let tags =document.getElementsByClassName("vid");
   //add bootstrab
@@ -22,6 +23,7 @@ for (let i = 0; i < tags.length; i++) {
 
   
 }
+});
 
 
 function add_video(parent_id,child_id,link,width,height,poster,call_back,pointer_parent) {
@@ -39,19 +41,19 @@ function add_video(parent_id,child_id,link,width,height,poster,call_back,pointer
     let source='<source src="'+link+'" type="video/mp4">';
     // add the link of the video to th player
     add_to_element(null,source,"temp",1,video);
-    //add the table 
-    let table_id="table"+child_id;
-    let table='<table style="width:50%" class="dcf-table dcf-table-responsive dcf-table-bordered dcf-table-striped "><thead><tr id="'+table_id+'"></tr></thead></tbody></table>';
+    //add the control_panel 
+    let control_id="control"+child_id;
+    let control_panel='<div class="row" id="'+control_id+'"></div>';
     if(pointer_parent==null){
-      add_to_element(parent_id,table,table_id,1,null);
+      add_to_element(parent_id,control_panel,control_id,1,null);
     }else{
-      add_to_element(null,table,table_id,1,pointer_parent);
+      add_to_element(null,control_panel,control_id,1,pointer_parent);
     }
     //add play button
     let temp="'"+child_id+"'";
     let link_x="'"+link+"'";    
-    let play_button='<th scope="col"><div class="btn btn-primary" onclick="play('+temp+','+call_back+','+link_x+')">Play</div></th>';
-    add_to_element(table_id,play_button,child_id+"play",1,null);
+    let play_button='<div class="btn btn-primary" onclick="play('+temp+','+call_back+','+link_x+')">Play</div>';
+    add_to_element(control_id,play_button,child_id+"play",1,null);
 
     //add video duration
     my_element=document.getElementById(child_id);
@@ -60,25 +62,25 @@ function add_video(parent_id,child_id,link,width,height,poster,call_back,pointer
       // make duration has not previously added (this could happen because the video will be reloaded with each full screen mode interruption)
       if (document.getElementById(child_id+"duration")==null) {
         let dauer=new Date(this.duration * 1000).toISOString().substr(11, 8)
-        let duration='<th scope="col"><p id="'+child_id+'duration" class="duration">Duration: '+dauer+'</p></th>';      
-        add_to_element(table_id,duration,child_id+"duration",1,null);   
+        let duration='<div id="'+child_id+'duration" class="duration">Duration: '+dauer+'</div>';      
+        add_to_element(control_id,duration,child_id+"duration",1,null);   
       }
 
     }
 
 
     //add result
-    let result='<th scope="col"><p id="'+child_id+'result" class="results">State: Unwatched</p></th>';
-    add_to_element(table_id,result,child_id+"reslt",1,null);
+    let result='<div id="'+child_id+'result" class="results">State: Unwatched</div>';
+    add_to_element(control_id,result,child_id+"reslt",1,null);
 
     //add video quality question
     //let code='<th scope="col"><label > Rate the video quality:</label> <select id="'+child_id+'quality" name="'+child_id+'quality"> <option value="bad">Bad</option> <option value="poor">Poor</option> <option value="fair">Fair</option> <option value="good">Good</option> <option value="excellent">Excellent</option></select></th>';
-    //add_to_element(table_id,code,child_id+"reslt",1,null);
+    //add_to_element(control_id,code,child_id+"reslt",1,null);
 
 
     //add count views
     let hidden_count_views='<input type="hidden" id="'+child_id+'count_views"  name="'+child_id+'hidden" value=0>';
-    add_to_element(table_id,hidden_count_views,child_id+"count_views",1,null);
+    add_to_element(control_id,hidden_count_views,child_id+"count_views",1,null);
 
 
 

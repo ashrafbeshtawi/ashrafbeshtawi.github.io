@@ -6,22 +6,22 @@
     let browserInfo = new BrowserType();
 
     let mobileResult=browserInfo.mobile;
-
+    let pcResult=!mobileResult;
     //showing result
-    showMobileResult(mobileResult, MobileResultPlace);
+    showMobileResult(mobileResult,pcResult, MobileResultPlace);
 
 
 
 
-    function showMobileResult(mobileResult, MobileResultPlace) {
+    function showMobileResult(mobileResult,pcResult, MobileResultPlace) {
+      let pass_test=config.automatic_test.device.pc==pcResult || config.automatic_test.device.mobile==mobileResult;
       let mobilePanel = document.getElementById("mobilePanel");
-      if (!mobileResult) {
-        MobileResultPlace.innerHTML =
-          "You are using PC or tablet<br />Test passed";
+      if (pass_test) {
+        MobileResultPlace.innerHTML =config.automatic_test.device.success;
           mobilePanel.setAttribute("class", "panel panel-primary");
           TestPassed();
       } else {
-        MobileResultPlace.innerHTML = "You are using a mobile phone.<br />Mobiles are not allowed";
+        MobileResultPlace.innerHTML = config.automatic_test.device.fail;
         mobilePanel.setAttribute("class", "panel panel-danger");
         TestFailed();
       }
