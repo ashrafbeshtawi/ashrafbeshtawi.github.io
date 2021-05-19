@@ -116,7 +116,7 @@ return  `
     <div class="question" id="brightness_${question_number}" correct="${correct_answer}">
         <div class="input_question">
             <label  for="brightness_${question_number}_${correct_answer}"> &nbsp; The Number: </label>
-            <input type="input" class="form-control" id="brightness_${question_number}_${correct_answer}" name="brightness_${question_number}_${correct_answer}" value="">
+            <input type="number" class="form-control" id="brightness_${question_number}_${correct_answer}" name="brightness_${question_number}_${correct_answer}" value="">
         </div>
     </div>
 </div>

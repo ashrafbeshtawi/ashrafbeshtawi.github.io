@@ -74,12 +74,14 @@ General configuration file:
  - allowedMaxContinuesSessionDurationInMinutes: how log is the maximum continue session. A break of 10min will be forced
 */
 var config ={
+	pageTitle:"Sample video qaulity assessment Task",
 	cookieName:"{{cfg.cookie_name}}",
 	qualificationCookieName:"{{cfg.qual_cookie_name}}",
 	qualificationValidFor:43200,
     forceRetrainingInHours:1,
     showSetupEveryMinutes:30,
     debug:"false",
+	//training and rating URLs
     questionUrls: ["assets/sample_video/sample.mp4"],
     trainingUrls: ["assets/sample_video/sample.mp4"],
 
@@ -211,6 +213,9 @@ $(function() {
 			console.log = function() {};
 		}
 		loadTextPlaceHolders();
+		if(readCookie("training")=="done"){
+			$("#training").hide();
+		}
 		generate_training_section();
 		generate_rating_section();
 		avoidAnsweringBeforeListeningThrough();
@@ -219,27 +224,14 @@ $(function() {
 		qual_passed= readCookie(config['qualificationCookieName']);
 		console.log(qual_passed);
 
-		if (qual_passed!==null && qual_passed=="true"){
+		if (qual_passed!==null && qual_passed=="done"){
 			$('.qualificationFieldset').prop("disabled", true);
 			$("#qualification").hide();
 			$("#qualification :input").removeAttr("required");
 			cookie_debug_status=cookie_debug_status+"ACR_LISTENER Exist*";
 		}
-		// given cookie availability disable the training
-		if (readCookie(config['cookieName']+"_training")){
-			$('.trainingFieldset').prop("disabled", true);
-			$("#training").hide();
-			$("#training :input").removeAttr("required");
-			$('#instruction').collapse()
-			cookie_debug_status=cookie_debug_status+"Train Exist*";
-		}
-		// given cookie availability disable the setup
-		if (readCookie(config['cookieName']+"_setup")){
-			$('.setupFieldset').prop("disabled", true);
-			$("#setup").hide();
-			$("#setup :input").removeAttr("required");
-			cookie_debug_status=cookie_debug_status+"Setup Exist*";
-		}
+
+
 
 		hit_num = readCookie(config['cookieName']+"_counter");
 		howManyHITsAnswered =0;
@@ -336,49 +328,51 @@ function initializeQualification(){
 	check if the qualification all answered
 */
 function isQualificationDone(){
-	qualification_ans.add(this.name);
-	console.log("check if the qualification is done"+this.name+","+qualification_ans.size);
-	validateQualificationAnswer();
-	if (qualification_ans.size==13)
-		validateQualificationAnswer();
-}
-
-/*
-	check the qualification passed
-*/
-function validateQualificationAnswer(){
-	m_tongue = $("input[name='3_mother_tongue']").val().toLowerCase().trim();
-	m_tongue_check= config.qualification.mother_tongue.includes(m_tongue)
-
-	// check listening devices
-	var listening_device = [];
-	$.each($("input[name='4_ld']:checked"), function(){
-		listening_device.push($(this).val());
-	});
-	device_check=false;
-	for (var i = 0; i < listening_device.length; i++) {
-		device_check = device_check || config.qualification.ld_in.includes(listening_device[i]);
+	//checking the gender
+	let participant_gender=false;
+	let gender_radio=document.getElementsByName("1_gender");
+	for (let index = 0; index < 3; index++) {
+		if(gender_radio[index].checked){
+			participant_gender=true;
+			break;
+		}	
 	}
-	working_area_checked= $("input[name='7_working_area']:checked").val() =="N"
-	hearing_self_report_check=$("input[name='8_hearing']:checked").val() == "normal"
-	count_correct_ht=0;
-	if (checkQualNumCorrect($("input[name='num1']").val().trim(),config.qualification.num1))
-		count_correct_ht ++;
-	if (checkQualNumCorrect($("input[name='num2']").val().trim(),config.qualification.num2))
-		count_correct_ht ++;
-	if (checkQualNumCorrect($("input[name='num3']").val().trim(),config.qualification.num3))
-		count_correct_ht ++;
-	if (checkQualNumCorrect($("input[name='num4']").val().trim(),config.qualification.num4))
-		count_correct_ht ++;
-	if (checkQualNumCorrect($("input[name='num5']").val().trim(),config.qualification.num5))
-		count_correct_ht ++;
-	//console.log("count_correct_ht:"+count_correct_ht);
-	passed=  m_tongue_check && device_check && working_area_checked &&  hearing_self_report_check &&
-		count_correct_ht>= 3;
-	console.log(passed);
-	// add a qualification for 'qualificationValidFor' minutes
-	createCookie(config.qualificationCookieName,passed,config.qualificationValidFor);
+	//checking the brithyear
+	let brithyear_text=document.getElementsByName("2_birth_year")[0].value.length>0? true : false;
+	//checking the mother lang
+	let mother_tongue_text=document.getElementsByName("3_mother_tongue")[0].value.length>0? true : false;
+	//check 5_last_subjective and 6_video_test
+	let last_subjective_select=document.getElementsByName("5_last_subjective")[0].selectedIndex>0? true : false;
+	let video_test_select=document.getElementsByName("6_video_test")[0].selectedIndex>0? true : false;	
+	// working area check 7_working_area
+	let working_area=false;
+	let working_area_radio=document.getElementsByName("7_working_area");
+	for (let index = 0; index < 2; index++) {
+		if(working_area_radio[index].checked){
+			working_area=true;
+			break;
+		}	
+	}
+	//checking for color blindness 9_color_blindness
+	let color_blindness=false;
+	let color_blindness_radio=document.getElementsByName("9_color_blindness");
+	for (let index = 0; index < 4; index++) {
+		if(color_blindness_radio[index].checked){
+			color_blindness=true;
+			break;
+		}	
+	}
+	//evaluating the results
+	if(participant_gender && brithyear_text && mother_tongue_text && last_subjective_select &&video_test_select &&working_area && color_blindness){
+			// add a qualification for 'qualificationValidFor' minutes
+			createCookie(config.qualificationCookieName,"done",config.qualificationValidFor);
+	}
+
+
+
 }
+
+
 
 /*
 	randomize clips in the hearing test
@@ -600,21 +594,7 @@ function createCookie(name, value, minutes) {
     localStorage.setItem(name, st);
 }
 
-function createCookieOld(name, value, minutes) {
-    var expires;
-    if (minutes) {
-        var date = new Date();
-        date.setTime(date.getTime() + (minutes * 60 * 1000));
-        expires = "expires=" + date.toGMTString();
-    } else {
-        expires = "";
-    }
 
-    let st = name + "=" + value +";"+ expires + ";path=/";
-    console.log(st);
-    //document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
-    document.cookie = st;
-}
 
 /*
 	Update the cookie which counts the number of Assignments performed by user. Increase it by "updateBy" value.
@@ -652,20 +632,7 @@ function readCookie(name) {
 		return null;
 }
 
-function readCookieOld(name) {
-    var nameEQ = name + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var cookies = decodedCookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-        var c = cookies[i];
-        while (c.charAt(0) == ' '){
-            c = c.substring(1);
-        }
-        if (c.indexOf(nameEQ) === 0)
-            return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
+
 
 
 /*
@@ -712,6 +679,8 @@ function showNextQuestionInTrainingSection(){
 		$('#trainingTabs li:nth-child('+id+') a').tab('show');
 	}else{
 		// last next is called
+		//set cookie for training as done for the specific number of hours set in the config
+		createCookie("training","done",config.forceRetrainingInHours*60);
 		setTimeout(function (){
 			window.location.hash="navNextPre";
 		},  50);
@@ -1129,7 +1098,7 @@ function generate_rating_section(){
 		</fieldset>
 		<fieldset class="qualificationFieldset"><label>2.&nbsp;In what year were you born? </label>
 				<div class="form-group">
-				  <input type="text" class="form-control" name="2_birth_year" required="">
+				  <input type="number" class="form-control" name="2_birth_year" required="">
 				</div>
 		</fieldset>
 
