@@ -7,6 +7,7 @@
 -->
 
 <head>
+	<title></title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/images.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -74,7 +75,8 @@ General configuration file:
  - allowedMaxContinuesSessionDurationInMinutes: how log is the maximum continue session. A break of 10min will be forced
 */
 var config ={
-	pageTitle:"Sample video qaulity assessment Task",
+	//title of the page
+	pageTitle:"Sample video quality assessment Task",
 	cookieName:"{{cfg.cookie_name}}",
 	qualificationCookieName:"{{cfg.qual_cookie_name}}",
 	qualificationValidFor:43200,
@@ -114,11 +116,11 @@ var config ={
 	// automatic test config
 	automatic_test:{
 		// the total number of tests
-		number_of_tests:4,
+		number_of_tests:5,
 		//show detailed results about the reults of each test to the user
 		general:{
 			//show the result of rach test
-			show_details:false,
+			show_details:true,
 			//success and fail messages
 			fail:"One or more automatic tests failed. The cause might be your screen refresh-rate, the screen size, the size of the browser's window or the device you are using",
 			success:"Automatic Tests passed. Please continue",
@@ -159,11 +161,29 @@ var config ={
 			//success and fail messages
 			fail:"Your Device Type does not match the requirments for this task",
 			success:"Device Test passed. Please continue",			
+		},
+		browser:{
+			//which browsers are allowed
+			chrome:true,
+			firefox: true,
+			IE: false,
+			//success and fail messages
+			fail:"Your Browser does not match the requirments for this task. Please use another browser",
+			success:"Browser Test passed. Please continue",	
 		}
 
 	},
 	//sample video to be shown to the participant in the setup section
-	sample_video:"assets/sample_video/sample.mp4",
+	sample_video:{
+		//url of the video
+		link:"assets/sample_video/sample.mp4",
+		// optional thumbnail (if set to "" the thumbnail will be a frame from the video)
+		thumbnail:"",
+		//these are the default values
+		height:400,
+		width:600,
+	},
+
 
 	// Just noticable difference config
 	// distance from screen (blur)
@@ -698,143 +718,6 @@ function showPreviousQuestionInTrainingSection(){
 
 
 var trainingStimulusPlayed;
-
-/*
-  If all training clips played until the end, add a cookie expiring after
-  config.forceRetrainingInHours
-*/
-function playedAudioTraining(id){
-	// parallel session check
-	isAnyParallelSession();
-	$('input[name="'+id+'"]').off('change');
-	trainingQuestionNumber= id.substring(1);
-	eval("trainingStimulusPlayed["+trainingQuestionNumber+"-1]=1;");
-	console.log(trainingStimulusPlayed.reduce(getSum, 0))
-	if (trainingStimulusPlayed.reduce(getSum, 0) ==  trainingStimulusPlayed.length){
-		createCookie(config['cookieName']+"_training","un_important",config['forceRetrainingInHours']*60);
-	}
-	if ($('span[id="'+id+'"]').attr("data-src") == config['knownQuestionInTrainingUrl']){
-		element = $('input[name="'+id+'"]');
-		element.unbind();
-		element.on('change', onValueChangeForTpQuestionInTraining);
-	}
-}
-
-// help to calc the sum of elements in an array
-function getSum(total, num) {
-  return total + num;
-}
-
-//---------------- baudio.js -----------------
-// All functions needed for custom audio playback
-var audioElements=[];
-function clickManager(event) {
-	ae=event.data.ae;
-	var id=event.data.id;
-	if (ae.paused) {
-		pauseAll();
-		playAudio(ae);
-	} else {
-		pauseAudio(ae);
-	}
-};
-
-function playAudio(audio){
-	audio.play();
-	var idT=audio.id;
-	var id=idT.substring(6,idT.length);
-	console.log(id);
-	$("#baudio_s_"+id).removeClass("glyphicon-repeat");
-	$("#baudio_s_"+id).removeClass("glyphicon-play");
-	$("#baudio_s_"+id).addClass("glyphicon-pause");
-	$("#baudio_"+id).addClass("btn-primary");
-	$("#audio_n_play_"+id).val(parseInt($("#audio_n_play_"+id).val())+1);
-}
-
-function pauseAudio(audio){
-	audio.pause();
-	var idT=audio.id;
-	var id=idT.substring(6,idT.length);
-	$("#baudio_s_"+id).removeClass("glyphicon-pause");
-	$("#baudio_"+id).removeClass("btn-primary");
-	$("#baudio_s_"+id).addClass("glyphicon-play");
-}
-
-function pauseAll(){
-	for (i = 0; i < audioElements.length; i++) {
-		if (!audioElements[i].paused){
-			pauseAudio(audioElements[i]);
-		}
-	}
-}
-
-function canPlay(event){
-	var ae=this;
-	var idText =this.id;
-	var id=idText.substring(6,idText.length);
-	$("#baudio_l_d_"+id).text(" / " + (ae.duration).toString().toMMSS());
-	$("#baudio_"+id).removeClass("disabled");
-}
-
-function timeUpdate(){
-	var ae=this;
-	var idText =this.id;
-	var id=idText.substring(6,idText.length);
-	$("#baudio_l_c_"+id).text(ae.currentTime.toString().toMMSS());
-}
-
-function isended(){
-	var ae=this;
-	var idText =this.id;
-	var id=idText.substring(6,idText.length);
-
-	$("#baudio_s_"+id).removeClass("glyphicon-pause");
-	$("#baudio_"+id).removeClass("btn-primary");
-	$("#baudio_s_"+id).addClass("glyphicon-repeat");
-	$("#audio_n_finish_"+id).val(parseInt($("#audio_n_finish_"+id).val())+1);
-	if ($("#"+id).attr('data-onfinished')){
-		window[$("#"+id).attr('data-onfinished')](id);
-	}
-}
-
-// loading all baudio elements in the page
-$(function() {
-    $( ".baudio" ).each(function(){
-		titleTextTemplate='<tr><td>{1}</td></tr>';
-		insert='';
-		title='';
-		a='<audio id="audio_{0}" preload="true"><source src="{1}" type="audio/wav"> </audio>'+
-		'<input type="hidden" id="audio_n_play_{0}" name="audio_n_play_{0}" value="0">'+
-		'<input type="hidden" id="audio_n_finish_{0}" name="audio_n_finish_{0}" value="0">';
-		if ($(this).attr('title')){
-			insert=titleTextTemplate;
-			title=$(this).attr('title');
-		}
-
-		t='<table class="baudio_table" border="0">'+insert+' <tr><td><button id="baudio_{0}" type="button" class="btn bn disabled"><span id ="baudio_s_{0}" class="glyphicon glyphicon-play"></span></button></td></tr><tr><td><span id="baudio_l_c_{0}" class="blabel" >00:00</span><span id="baudio_l_d_{0}" class="blabel" > / 00:00</span></td></tr></table>';
-		src=$(this).attr('data-src');
-		id=$(this).attr('id');
-
-		$(this).append(a.f(id,src));
-		$(this).append(t.f(id,title));
-		var audioElement = document.getElementById("audio_"+id);
-		//save for later
-		audioElements.push(audioElement);
-		$( "#baudio_"+id ).click({ae: audioElement, id: id},clickManager);
-		$( "#baudio_"+id ).disabled=false;
-		audioElement.addEventListener("canplay",canPlay.bind(audioElement),false);
-		audioElement.addEventListener("timeupdate",timeUpdate.bind(audioElement),false);
-		audioElement.addEventListener("ended",isended.bind(audioElement),false);
-	});
-
-	$("source").on("error", function (e) {
-        console.log("Error at audio tag level!"+e.target.src);
-        problematic_urls=problematic_urls+"<li>"+e.target.src+"</li>";
-        //$("#error_details").html(problematic_urls);
-        recordError("on loading audio clips",e.target.src);
-        //$("#error_loading_files").show();
-    });
-});
 var problematic_urls="";
 /*
 	Called when the scale item is clicked
@@ -898,7 +781,7 @@ function onValueChangeForTpQuestionInTraining(){
 }
 
 /*
-	Called when the audio in rating section by the given id is completely played.
+	Called when the video in rating section by the given id is completely played.
 	Now user can rate the quality.
 */
 function playedVideoQ(id){
@@ -924,14 +807,6 @@ function playedVideoQ(id){
 	}
 }
 
-/*
-	Called when user answers to one question from setup
-	(i.e. q2. math question). Here the cookie will be added/updated
-*/
-function userAnsweringToSetupQuestions(){
-	createCookie(config['cookieName']+"_setup","un_important",config['showSetupEveryMinutes']);
-	$('input[name="math"]').off('change');
-}
 
 </script>
 
@@ -1249,6 +1124,10 @@ function generate_rating_section(){
 					<div class="panel-heading">Mobile phone check</div>
 					<div id="mobileResult" class="panel-body"></div>
 				</div>
+				<div id="BrowserPanel" class="panel panel-warning">
+					<div class="panel-heading">Browser check</div>
+					<div id="BrowserResult" class="panel-body"></div>
+				</div>
 			</div>
 
 			<div id="HardwareResult" class="alert alert-warning" role="alert">
@@ -1401,8 +1280,21 @@ function generate_rating_section(){
 
 <!--script for reading the data from config-->
 <script>
+	//setting the title
+	document.getElementsByTagName("title")[0].innerHTML=config.pageTitle;
 	//setting the link of sample video in the setupsection
-	let sample_video=document.getElementById("sample_video").setAttribute("link",config.sample_video);
+	let sample_video=document.getElementById("sample_video");
+	sample_video.setAttribute("link",config.sample_video.link);
+	
+	sample_video.setAttribute("height",config.sample_video.height);
+	sample_video.setAttribute("width",config.sample_video.width);
+	//setting poster if given
+	let my_poster=config.sample_video.thumbnail
+	// not null & not empty && not only spaces
+	if(my_poster!=null && my_poster != "" && my_poster.match("[^ ]")){
+		sample_video.setAttribute("poster",my_poster);
+	}
+	
 </script>
 <!--scripts for automatic tests-->
 <script>
@@ -1444,6 +1336,7 @@ function AnyFailed(){
 <script src="assets/js/screenSize.js"></script>
 <script src="assets/js/WindowSize.js"></script>
 <script src="assets/js/device.js"></script>
+<script src="assets/js/browser.js"></script>
 <!--/scripts for automatic tests-->
 
 
