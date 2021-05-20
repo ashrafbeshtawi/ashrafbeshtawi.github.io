@@ -84,8 +84,8 @@ var config ={
     showSetupEveryMinutes:30,
     debug:"false",
 	//training and rating URLs
-    questionUrls: ["assets/sample_video/sample.mp4"],
-    trainingUrls: ["assets/sample_video/sample.mp4"],
+    questionUrls: ["assets/rating_videos/1.mp4","assets/rating_videos/2.mp4","assets/rating_videos/3.mp4","assets/rating_videos/4.mp4","assets/rating_videos/5.mp4"],
+    trainingUrls: ["assets/training_videos/1.mp4","assets/training_videos/2.mp4","assets/training_videos/3.mp4"],
 
     knownQuestionInTrainingUrl:"{{cfg.training_trap_urls}}",
     knownQuestionInTrainingAns: "{{cfg.training_trap_ans}}",
@@ -699,8 +699,7 @@ function showNextQuestionInTrainingSection(){
 		$('#trainingTabs li:nth-child('+id+') a').tab('show');
 	}else{
 		// last next is called
-		//set cookie for training as done for the specific number of hours set in the config
-		createCookie("training","done",config.forceRetrainingInHours*60);
+
 		setTimeout(function (){
 			window.location.hash="navNextPre";
 		},  50);
@@ -747,6 +746,9 @@ function avoidAnsweringBeforeListeningThrough(){
 	if the answer is correct, change the value of gq_check to 0.
 */
 function onValueChangeForGoldQuestion(){
+	//check if training is finished
+	TrainingFinishedCheck();
+
 	let ans = $( this ).val()
 	let expectedVal = parseInt(config['goldClipAns'])
 	if ( expectedVal -1 <=ans && ans <= expectedVal +1 )
@@ -761,6 +763,9 @@ function onValueChangeForGoldQuestion(){
 	if the answer is correct, change the value of tp_check to 0.
 */
 function onValueChangeForTpQuestion(){
+	//check if training is finished
+	TrainingFinishedCheck();
+
 	if ($( this ).val()  == parseInt(config['knownQuestionAns']))
 		$('#tp_check').val(0);
 	else
@@ -798,12 +803,45 @@ function playedVideoQ(id){
 		element.unbind();
 		element.on('change', onValueChangeForGoldQuestion);
 	}else{
-		$('input[name="'+id+'"]').off('change');
+		element = $('input[name="'+id+'"]');
+		element.unbind();
+		element.on('change', TrainingFinishedCheck);
 		// check if already this HIT is counted
 		if (!hitCounterIncreased){
 			updateCounterCookie(config['cookieName']+"_counter",1);
 			hitCounterIncreased=true
 		}
+	}
+}
+
+
+function TrainingFinishedCheck() {
+	//getting the number of tabs
+	let count = $("#trainingTabs li").length;
+	let done_counter=0;
+
+	//looping over the tabs
+	for (let index = 1; index <= count; index++) {
+		
+		let this_tab_result=false;
+		//selecting the radio buttons in the tab
+		let this_tab=document.getElementsByName(`t${index}`);
+		//looping over the radio buttons
+		for (let i = 0; i < 5; i++) {
+			if(this_tab[i].checked){
+				this_tab_result=true;
+				break;
+			}	
+		}
+		//if a choice in this tab is selected then incerement counter
+		if(this_tab_result){
+			done_counter++;
+		}
+
+	}
+	//check if all tabs are done then set cookie for training as done
+	if(done_counter==count){
+		createCookie("training","done",config.forceRetrainingInHours*60);
 	}
 }
 
