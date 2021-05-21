@@ -75,44 +75,40 @@ General configuration file:
  - allowedMaxContinuesSessionDurationInMinutes: how log is the maximum continue session. A break of 10min will be forced
 */
 var config ={
-	//title of the page
+	//title of the page and cookies names
 	pageTitle:"Sample video quality assessment Task",
-	cookieName:"{{cfg.cookie_name}}",
-	qualificationCookieName:"{{cfg.qual_cookie_name}}",
+	cookieName:"sample task",
+	qualificationCookieName:"sample qualification",
+	//expiration date of cookies
 	qualificationValidFor:43200,
     forceRetrainingInHours:1,
     showSetupEveryMinutes:30,
+	//How long the session is allowed to last before forcing the participant to take a break
+	sessionMaxLength:0.1,
+	forcedBreak:10,
     debug:"false",
 	//training and rating URLs
+	trainingUrls: ["assets/training_videos/1.mp4","assets/training_videos/2.mp4","assets/training_videos/3.mp4"],
     questionUrls: ["assets/rating_videos/1.mp4","assets/rating_videos/2.mp4","assets/rating_videos/3.mp4","assets/rating_videos/4.mp4","assets/rating_videos/5.mp4"],
-    trainingUrls: ["assets/training_videos/1.mp4","assets/training_videos/2.mp4","assets/training_videos/3.mp4"],
-
-    knownQuestionInTrainingUrl:"{{cfg.training_trap_urls}}",
-    knownQuestionInTrainingAns: "{{cfg.training_trap_ans}}",
-    knownQuestionUrl:"${TP}",
-    knownQuestionAns: "${TP_ANS}",
-    goldClipURL:"${gold_clips}",
-    goldClipAns:"${gold_clips_ans}",
-    randomizeTrainingQuestions:"true",
+	// randomizing the questions
+	randomizeTrainingQuestions:"true",
     randomizeRatingQuestions:"true",
-    allowedMaxHITsInProject:"{{cfg.allowed_max_hit_in_project}}",
-	allowedMaxContinuesSessionDurationInMinutes:45,
-	qualification:{
-		mother_tongue: ["english","en"],
-		ld_in: ["in-ear", "over-ear"],
-		working_area: "N",
-		hearing: "normal",
- 		num1: "{{cfg.num1_ans}}",
-        num2: "{{cfg.num2_ans}}",
-        num3: "{{cfg.num3_ans}}",
-        num4: "{{cfg.num4_ans}}",
-        num5: "{{cfg.num5_ans}}"
-	},
-	cmp_correct_answers: "{{cfg.cmp_correct_answers}}",
-	cmp_max_n_feedback : "{{cfg.cmp_max_n_feedback}}",
-	cmp_pass_threshold: "{{cfg.cmp_pass_threshold}}",
-	emailAddress: "{{cfg.contact_email}}",
-	// new video quality assessments config
+
+	//trapping question in the training section
+    knownQuestionInTrainingUrl:"assets/training_videos/1.mp4",
+    knownQuestionInTrainingAns: "1",
+	//trapping question in the rating section
+    knownQuestionUrl:"assets/rating_videos/1.mp4",
+    knownQuestionAns: "1",
+	//golden question in the rating section
+    goldClipURL:"assets/rating_videos/2.mp4",
+    goldClipAns:"1",
+
+	// how many HITS the participant is allowed to answer for this task
+    allowedMaxHITsInProject:25,
+	//contact email
+	emailAddress: "beshtawi.ashraf@gmail.com",
+
 	// automatic test config
 	automatic_test:{
 		// the total number of tests
@@ -233,7 +229,7 @@ $(function() {
 			console.log = function() {};
 		}
 		loadTextPlaceHolders();
-		if(readCookie("training")=="done"){
+		if(readCookie(config.cookieName+"training")=="done"){
 			$("#training").hide();
 		}
 		generate_training_section();
@@ -273,7 +269,7 @@ $(function() {
 		// for qualification section
 		initializeQualification();
 		initializeActivePageMonitoring();
-		cmp_check_on_load();
+
 	}catch(err){
 		console.error(err);
 		recordError(err.name,err.message);
@@ -467,89 +463,8 @@ function checkQualNumCorrect(given_ans, correct_hash){
 }
 // ------------------------ online check cmp
 
-/*
- check if the answer to a CMP question is correct.
-*/
-function isCMPAnsCorrect(selected_url){
-	// for backward compatibility
-	if (!config.hasOwnProperty("correct_cmp_answers"))
-		return true;
-	b64 = btoa(selected_url);
-	return config["correct_cmp_answers"].includes(b64);
-}
 
-// add this to onload of page
-function cmp_check_on_load(){
-	$('#setup').find(':input').filter(':visible').each(function(){
-	  $(this).on('change', validateCMPSection);
-	});
-}
 
-/*
-	Validate the answers give to the cmps in the setup section and provide an adequate feedback
-*/
-function validateCMPSection(){
-	// 1. check if all questions are answered
-	cmp_answers= [];
-	for (i = 1; i < 5; i++) {
-		ans = $("input[name='cmp{0}']:checked".f(i)).val();
-	  	if (!ans)
-	  		return;
-	  	cmp_answers.push(ans);
-	}
-	math_ans = $('#Math').val();
-	if (!math_ans)
-	  	return;
-
-		// 2. check math question
-	// do not check math question now
-	// 3. check cmps
-	correct_ans = 0 ;
-	for (i = 0; i < 4; i++) {
-		if (cmp_answers[i] == "o")
-			continue;
-		url = $('span[id="CMP{0}_{1}"]'.f(i+1, cmp_answers[i].toUpperCase())).attr("data-src");
-		if (config["cmp_correct_answers"].includes(btoa(url)))
-			correct_ans ++;
-	}
-	// 4. shows the message if needed
-	if (correct_ans >= config["cmp_pass_threshold"]){
-		// valid response in cmp
-		createCookie(config['cookieName']+"_setup","un_important",config['showSetupEveryMinutes']);
-		return;
-	}
-	removeCookie(config['cookieName']+"_setup");
-	if (n_cmp_feedbacks <  config["cmp_max_n_feedback"]){
-		n_cmp_feedbacks++;
-		msg = "Based on your answers, your environment is NOT quite enough or your setup is NOT good enough. Please make sure to do your task in a quite environment with headset and use both earpods. Try the Setup section again.";
-		last_time_msg = " It is the last time you see this feedback.";
-		makeAllCMPsUnChecked();
-		if (n_cmp_feedbacks ==config["cmp_max_n_feedback"])
-			alert(msg+last_time_msg);
-		else
-			alert(msg);
-
-	}
-	// 4.2 remove the listener
-	if (n_cmp_feedbacks >=  config["cmp_max_n_feedback"]){
-		$('#setup').find(':input').filter(':visible').each(function(){
-	  		$(this).off('change');
-		});
-	}
-}
-
-function makeAllCMPsUnChecked(){
-	// remove the listeners
-	$('#setup').find(':input').filter(':visible').each(function(){
-	  		$(this).off('change');
-	});
-	// uncheck radio <buttons></buttons>
-	for (i = 1; i < 5; i++) {
-		$("input[name='cmp{0}']:checked".f(i)).prop('checked', false);
-	}
-	// add the listeners
-	cmp_check_on_load()
-}
 
 //--------------- Utilities -----------------
 
@@ -766,6 +681,7 @@ function onValueChangeForTpQuestion(){
 	//check if training is finished
 	TrainingFinishedCheck();
 
+
 	if ($( this ).val()  == parseInt(config['knownQuestionAns']))
 		$('#tp_check').val(0);
 	else
@@ -790,18 +706,22 @@ function onValueChangeForTpQuestionInTraining(){
 	Now user can rate the quality.
 */
 function playedVideoQ(id){
-	console.log("ID:"+id);
+
 	// parallel session check
 	isAnyParallelSession();
-	// check if it was the trapping question
-	if ($('span[id="'+id+'"]').attr("data-src") == config['knownQuestionUrl']){
+	// check if it was the trapping question or golden question
+	if ($('div[id="'+id+'"]').attr("link") == config['knownQuestionUrl']){
 		element = $('input[name="'+id+'"]');
 		element.unbind();
 		element.on('change', onValueChangeForTpQuestion);
-	}else if ($('span[id="'+id+'"]').attr("data-src") == config['goldClipURL']){
+	}else if ($('div[id="'+id+'"]').attr("link") == config['goldClipURL']){
 		element = $('input[name="'+id+'"]');
 		element.unbind();
 		element.on('change', onValueChangeForGoldQuestion);
+	}else if($('div[id="'+id+'"]').attr("link") == config['knownQuestionInTrainingUrl']){
+		element = $('input[name="'+id+'"]');
+		element.unbind();
+		element.on('change', onValueChangeForTpQuestionInTraining);
 	}else{
 		element = $('input[name="'+id+'"]');
 		element.unbind();
@@ -841,7 +761,7 @@ function TrainingFinishedCheck() {
 	}
 	//check if all tabs are done then set cookie for training as done
 	if(done_counter==count){
-		createCookie("training","done",config.forceRetrainingInHours*60);
+		createCookie(config.cookieName+"training","done",config.forceRetrainingInHours*60);
 	}
 }
 
@@ -933,8 +853,19 @@ function generate_rating_section(){
 		<p><b> Meanwhile, please return this HIT and try another one</b>.</p>
 	</div>
 </section>
+<!--    Break -->
+<section class="container" id="breakSection" hidden >
+	<div  class="panel panel-warning">
+		<div class="panel-heading">Break</div>
+		<div class="panel-body">
+			<p>The maximum session length reached. please wait and take a break for <span id="maxTime"></span> minutes before continuing.</p> <br />
+			<p>Dont worry  you will be able to continue with the survey soon. No Progress is lost, please <strong> don't</strong> close the window.</p>
+		</div>
+	</div>
+</section>
 
 <!-- Instructions -->
+<div id="wholeServey">
 <section class="container" id="Survey">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -1295,6 +1226,7 @@ function generate_rating_section(){
 	<p>Thanks for your participation. Please perform more HITs from this group when they are available for you.</p>
 </section>
 
+</div>
 <section class="container" id="max_allowed_HITs_reached" hidden>
 	<p><h2>Well done! </h2> You performed the maximum number of HITs that you were allowed to.</p>
 
@@ -1375,6 +1307,7 @@ function AnyFailed(){
 <script src="assets/js/WindowSize.js"></script>
 <script src="assets/js/device.js"></script>
 <script src="assets/js/browser.js"></script>
+<script src="assets/js/break.js"></script>
 <!--/scripts for automatic tests-->
 
 

@@ -12,7 +12,7 @@ let correct_answers_requested=config.blur.correct_answers_requested;
 let target_blur_questions=document.getElementById("JND_distance");
 
 //check if the test was passed 
-let jnd_distance_cookies=readCookie("jnd_distance");
+let jnd_distance_cookies=readCookie(config.cookieName+"_jnd_distance");
 
 //if the test was not done before or result expired
 if(jnd_distance_cookies!=null){
@@ -105,7 +105,7 @@ function getValidationButton() {
             Test passed. Please continue
             </div>
         `;
-        createCookie("jnd_distance", "done", config.showSetupEveryMinutes);
+        createCookie(config.cookieName+"_jnd_distance", "done", config.showSetupEveryMinutes);
 
     }else{
         target_blur_questions.innerHTML+= `

@@ -12,7 +12,7 @@ let correct_answers_requested_brightness=config.brightness.correct_answers_reque
 let target_brightness_questions=document.getElementById("JND_brightness");
 
 //check if the test was passed 
-let jnd_brightness_cookies=readCookie("jnd_brightness");
+let jnd_brightness_cookies=readCookie(config.cookieName+"jnd_brightness");
 
 //if the test was already done beofre and not expired yet then hide this test 
 if(jnd_brightness_cookies!=null){
@@ -82,7 +82,7 @@ function getValidationButton_Brightness() {
             Test passed. Please continue
             </div>
         `;
-        createCookie("jnd_brightness", "done", config.showSetupEveryMinutes);
+        createCookie(config.cookieName+"jnd_brightness", "done", config.showSetupEveryMinutes);
 
     }else{
         target_brightness_questions.innerHTML+= `
