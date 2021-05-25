@@ -201,7 +201,7 @@ var config ={
 		path:"assets/jnd_brightness",
 		format:"jpg",
 		//SNR levels (for each entry in the array one question will be generated
-		snr:[1,2,4,7],
+		snr:[1,5,7],
 		//the number of correct answers required to pass the brightness test
 		correct_answers_requested:3,
 		// the numbers in the sample (dont change anything here)
@@ -230,6 +230,8 @@ $(function() {
 		}
 		loadTextPlaceHolders();
 		if(readCookie(config.cookieName+"training")=="done"){
+
+			document.getElementById("hidden_info").innerHTML+=`<input type="hidden" id="training_done_in_older_session" name="training_done_in_older_session" value="true"> `;
 			$("#training").hide();
 		}
 		generate_training_section();
@@ -1103,8 +1105,7 @@ function generate_rating_section(){
 			Hardware Tests are being conducted
 			</div>
 
-			<!--results of automatic tests-->	
-			 <input type="hidden" id="automaticTests" name="automaticTests" value="false">
+
 			<div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
 		</fieldset>
 		<br>
@@ -1125,17 +1126,18 @@ function generate_rating_section(){
 			<fieldset class="setupFieldset" >
 				<label>2.&nbsp; Which sample has a better quality compared to the other one? </label>
 				<div id="JND_distance"></div>
-				<input type="hidden" id="jnd_distance_result" name="jnd_distance_result" value="false">
+
 			</fieldset>
 			</div>
 			<!--/JND distance-->	
 
 			<!--JND brightness-->	
-			<div id="jnd_brightness_whole">
+			<div id="jnd_brightness_whole" >
 				<fieldset class="setupFieldset" >
 					<label>3.&nbsp; Enter the number you see in the images in the textbox: </label>
-					<div id="JND_brightness"></div>
-					<input type="hidden" id="jnd_brightness_result" name="jnd_brightness_result" value="false">
+					<div id="JND_brightness" class="row"></div>
+					<div id="JND_brightness_button"></div>
+
 				</fieldset>
 				</div>
 			<!--/JND brightness-->			
@@ -1247,6 +1249,14 @@ function generate_rating_section(){
 			  <b>NOTE:</b> Any try to perform assignments and neglecting this message is forbidden and leads ro rejection of all of your submissions.
 			</div>
 </section>
+
+<!--hidden inputs-->
+<fieldset id="hidden_info">
+			<!--results of automatic tests-->	
+			<input type="hidden" id="automaticTests" name="automaticTests" value="false">
+			<input type="hidden" id="jnd_distance_result" name="jnd_distance_result" value="false">
+			<input type="hidden" id="jnd_brightness_result" name="jnd_brightness_result" value="false">
+</fieldset>
 
 <!--script for reading the data from config-->
 <script>

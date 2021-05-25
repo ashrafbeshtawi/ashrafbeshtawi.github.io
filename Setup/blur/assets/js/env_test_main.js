@@ -10,7 +10,7 @@ var config ={
     jndMaxQuestions:45, // maximum number of questions
     snrStart:1, // SNR-  worse quality
     snrEnd :10, // SNR-  best quality
-    finishIfReversalIs:2, // use 7 as recommended by Levit t , H. (1992).
+    finishIfReversalIs:7, // use 7 as recommended by Levit t , H. (1992).
     exportFileName:"export.csv",
     debug:true
 }
@@ -98,6 +98,7 @@ function convertLogsToCSV() {
          result += lineDelimiter;
           // add reversals
          result += "Targeted SNR"+ columnDelimiter + targetSNrLevel + lineDelimiter;
+		 result += "The targeted SNR is the SNR you should test for in the ACR_template (read the config of the ACR_template for more information about how to setup the test)" + lineDelimiter;
          result += "Reversals"+ columnDelimiter + reversalAtSNR.join() + lineDelimiter;
          result += lineDelimiter;
 

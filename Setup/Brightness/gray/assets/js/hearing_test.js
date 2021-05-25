@@ -113,7 +113,8 @@ function convertLogsToCSV() {
          result += lineDelimiter;
           // add reversals
           convertedSNR= (6-targetSNrLevel);
-         result += "Targeted SNR"+ columnDelimiter + targetSNrLevel + columnDelimiter +"i.e. : "+convertedSNR+ lineDelimiter;
+         result += "Targeted SNR"+ columnDelimiter + targetSNrLevel + columnDelimiter;
+		 result += "The targeted SNR is the SNR you should test for in the ACR_template (read the config of the ACR_template for more information about how to setup the test)" + lineDelimiter;
          result += "Reversals"+ columnDelimiter + reversalAtSNR.join() + lineDelimiter;
          result += lineDelimiter;
 
@@ -200,7 +201,7 @@ function addJNDQuestion(n,snrLevel){
 
     pick_is_added = false ;
     // 0: question Number, 1: image, 2: correct ans
-	var tempelate='<fieldset id="fieldset_{0}"><label>{0}.&nbsp;Look at the following image and enter the three numbers that you see.</label><div class="row" style="margin-top:10px;"> <div align="center">  <img  src="{1}" width="500" height="500">  </div> <div align="center"> <br/> <input type="text" id="num_{0}" name="num_{0}" required="" class="nospace" autocomplete="off"> </div> <div align="center" style="margin-top:20px"> 	<button type="button" class="btn btn-primary" id="bt{0}" onclick="submitAnsJnd({0},{2},\'{3}\');" >Next</button></div></div></fieldset>';
+	var tempelate='<fieldset id="fieldset_{0}"><label>{0}.&nbsp;Look at the following image and enter the three numbers that you see.</label><div class="row" style="margin-top:10px;"> <div align="center">  <img  src="{1}" width="250" height="250">  </div> <div align="center"> <br/> <input type="text" id="num_{0}" name="num_{0}" required="" class="nospace" autocomplete="off"> </div> <div align="center" style="margin-top:20px"> 	<button type="button" class="btn btn-primary" id="bt{0}" onclick="submitAnsJnd({0},{2},\'{3}\');" >Next</button></div></div></fieldset>';
 
     a = snrLevel;
     b = config.snrEnd;
@@ -356,8 +357,8 @@ function getNextQuestion(){
 var targetSNrLevel=-1;
 function finished(){
 	name=$('#p_name').val();
-	exFileName=name+"_jnd_d3t.csv";
-	template='<h3> <p>Finished!. Please do not close this window, and inform the test moderator. Thanks for your participation. </p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div></h3>';
+	exFileName=name+"_brightness_test.csv";
+	template='<h3> <p>Finished!. Please do not close this window, and inform the test moderator. Thanks for your participation. </p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div><br /> <a href="../../../index.html">Return to main page</a></h3>';
 
 	console.log("jndSuccessAnsPerQuestion: "+ successAnsPerSNRLevel.toString());
 	console.log("questionAsked: "+questionAskedPerSNRLevel.toString());

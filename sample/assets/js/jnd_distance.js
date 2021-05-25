@@ -17,6 +17,7 @@ let jnd_distance_cookies=readCookie(config.cookieName+"_jnd_distance");
 //if the test was not done before or result expired
 if(jnd_distance_cookies!=null){
     document.getElementById("jnd_distance_whole").setAttribute("style","display:none;");
+    document.getElementById("jnd_distance_result").setAttribute("value","true");
 }else{
     
     let ALL_SNR=config.blur.snr_pairs;
@@ -48,7 +49,7 @@ if(jnd_distance_cookies!=null){
     }
     //add the validation button
     target_blur_questions.innerHTML+= `
-    <div class="question">
+    <div class="center">
         <button id="blur_test_button" type="button" class="btn btn-primary" onclick="getValidationButton()">Validate The Answers</button>
     </div>
     `;
@@ -142,7 +143,7 @@ return  `
         <img src="${path_blur_questions+"/"+snr2+"."+format_blur_questions}"  width="400" height="280">
         </div>
     </div>
-    <div class="question" id="blur_${question_number}" correct="${correct_answer}">
+    <div class="center" id="blur_${question_number}" correct="${correct_answer}">
         <div class="radio_question">
             <input type="radio" id="blur_${question_number}_first" name="blur_${question_number}" value="first">
             <label  for="blur_${question_number}_first"> &nbsp; Quality of Image A is better.</label>

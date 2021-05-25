@@ -62,7 +62,7 @@ function add_video(parent_id,child_id,link,width,height,poster,call_back,pointer
       // make duration has not previously added (this could happen because the video will be reloaded with each full screen mode interruption)
       if (document.getElementById(child_id+"duration")==null) {
         let dauer=new Date(this.duration * 1000).toISOString().substr(11, 8)
-        let duration='<div id="'+child_id+'duration" class="duration">Duration: '+dauer+'</div>';      
+        let duration='<div id="'+child_id+'duration" class="duration">Duration: <strong>'+dauer+'</strong></div>';      
         add_to_element(control_id,duration,child_id+"duration",1,null);   
       }
 
@@ -70,7 +70,7 @@ function add_video(parent_id,child_id,link,width,height,poster,call_back,pointer
 
 
     //add result
-    let result='<div id="'+child_id+'result" class="results">State: Unwatched</div>';
+    let result='<div id="'+child_id+'result" class="results" >State: <strong style="color:red;">Unwatched</strong> </div>';
     add_to_element(control_id,result,child_id+"reslt",1,null);
 
     //add video quality question
@@ -212,7 +212,7 @@ function change_video_result(id,call_back,link,end_play) {
     call_back(parent_id);
   }
   //set video as watched
-    result.innerHTML="State: watched 	&#10003;";
+    result.innerHTML='State: <strong style="color:green;">watched &#10003</strong> 	';
   //increment views by 1
     let new_value=parseInt(count_views.getAttribute("value"))+1;
     count_views.setAttribute("value",new_value);

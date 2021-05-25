@@ -2,6 +2,8 @@
     display: flex;
     /* maximaize the space between this flex element*/
     justify-content: space-between;
+    flex-flow: row wrap;
+    padding: 20px;
 
 }
 
@@ -12,12 +14,18 @@
 }
 
 .question{
+
     margin: auto;
-    width: 30%;
     padding: 10px;
 
 }
 
+.center{
+    width:30%;
+    margin: auto;
+    padding: 10px;
+
+}
 
 .radio_question{
     display: flex;
@@ -25,5 +33,8 @@
 
 .input_question{
     display: flex;
-    padding: 5px;
+    width: 75%;
+
 }
+
+
