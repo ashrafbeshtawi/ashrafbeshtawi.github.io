@@ -115,8 +115,10 @@ var config ={
 		number_of_tests:5,
 		//show detailed results about the reults of each test to the user
 		general:{
-			//show the result of rach test
-			show_details:true,
+			//show the result of each test 
+			show_details:false,
+			//show the result of each test 
+			show_final_result:false,
 			//success and fail messages
 			fail:"One or more automatic tests failed. The cause might be your screen refresh-rate, the screen size, the size of the browser's window or the device you are using",
 			success:"Automatic Tests passed. Please continue",
@@ -1074,7 +1076,7 @@ function generate_rating_section(){
   <div  class="panel-collapse collapse in" id="setup_panel">
 	  <div class="panel-body">
 <!--automatic tests-->	
-		<fieldset class="setupFieldset" ><label>0.&nbsp;Automatic tests.</label>
+		<fieldset id="automaticTestsWhole" class="setupFieldset" ><label>0.&nbsp;Automatic tests.</label>
 			<div id="automaticTests_div">
 				<div id="panelFPS" class="panel panel-warning">
 				<div class="panel-heading">Screen refresh-rate check</div>
@@ -1283,7 +1285,10 @@ const CallBackAllPassed=passedAll;
 const CallBackAnyFailed=AnyFailed;
 
 //hide the automatic tests if the config say so
-if(!config.automatic_test.general.show_details){
+if(!config.automatic_test.show_final_result){
+	let tests_div_whole=document.getElementById("automaticTestsWhole");
+	tests_div_whole.setAttribute("style","display: none;");
+} else if(!config.automatic_test.general.show_details){
 	let tests_div=document.getElementById("automaticTests_div");
 	tests_div.setAttribute("style","display: none;");
 }
