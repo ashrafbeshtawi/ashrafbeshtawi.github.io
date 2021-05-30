@@ -1,0 +1,246 @@
+<!--
+/*---------------------------------------------------------------------------------------------
+*  Copyright (c) Microsoft Corporation. All rights reserved.
+*  Licensed under the MIT License. See License.txt in the project root for license information.
+*--------------------------------------------------------------------------------------------*/
+@author: Ashraf Beshtawi
+-->
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8">
+</head>
+
+
+
+<style type="text/css">
+body{font-family:Tahoma,"Times New Roman", Times, serif;}
+
+.table th, .table td {
+     border-top: none !important;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.baudio {margin:5px;}
+.baudio .baudio_table{display: inline;}
+.baudio .bn{margin:10px;}
+.baudio td{text-align:center;}
+.baudio .blabel{margin-top:50px;font-size: 70%;	color: #636363;}
+
+.scale {font-size: 100%;}
+.scale td { text-align: left; padding:0;}
+.scale label { display:block;}
+.scale .c { text-align: center;}
+section {
+	margin-bottom:15px;
+	padding: 10px 10px;
+	font-family: Verdana, Geneva, sans-serif;
+	color:#333333;
+	font-size:0.9em;
+}
+fieldset { padding: 10px; background:#fbfbfb; border-radius:5px; margin-bottom:5px; }
+</style>
+
+<script type="text/javascript">
+
+
+var config ={
+	//title of the page and cookies names
+	pageTitle:"Sample video quality assessment Task",
+	// automatic test config
+	automatic_test:{
+		// the total number of tests
+		number_of_tests:5,
+		//show detailed results about the reults of each test to the user
+		general:{
+			//show the result of each test 
+			show_details:false,
+			//show the result of each test 
+			show_final_result:false,
+			//success and fail messages
+			fail:"One or more automatic tests failed. The cause might be your screen refresh-rate, the screen size, the size of the browser's window or the device you are using",
+			success:"Automatic Tests passed. Please continue",
+		},
+
+		//Frame-rate test
+		fps:{
+			//the fps needed
+			fps_value:60,
+			//tolerance allowed
+			tolerance_Percent:15,
+			//success and fail messages
+			fail:"Your Screen Framerate does not match the requirments for this task",
+			success:"Screen Framerate Test passed. Please continue",
+		},
+		//screen dimensions test
+		dimensions:{
+			required_width:30,
+			required_height:15,
+			//success and fail messages
+			fail:"Your Screen Dimesions do not match the requirments for this task",
+			success:"Screen Dimesions Test passed. Please continue",
+		},
+		//window size
+		window:{
+			//should the brwoser's window be maximaized in size 
+			maximized:true,
+			//success and fail messages
+			fail:"Your Browsers' window size does not match the requirments for this task",
+			success:"Browsers' window size Test passed. Please continue",
+		},
+		//device check allowes to choose which devices are allowed to participate
+		device:{
+			//pc is allowd
+			pc:true,
+			//mobile is not allowed
+			mobile:false,
+			//success and fail messages
+			fail:"Your Device Type does not match the requirments for this task",
+			success:"Device Test passed. Please continue",			
+		},
+		browser:{
+			//which browsers are allowed
+			chrome:true,
+			firefox: true,
+			IE: false,
+			//success and fail messages
+			fail:"Your Browser does not match the requirments for this task. Please use another browser",
+			success:"Browser Test passed. Please continue",	
+		}
+
+	},
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+<!-- Setup -->
+<section class="container" id="setup">
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+		<a data-target="#setup_panel" data-toggle="collapse" >Setup</a>
+	</h3>
+  </div>
+  <div  class="panel-collapse collapse in" id="setup_panel">
+	  <div class="panel-body">
+<!--automatic tests-->	
+		<fieldset id="automaticTestsWhole" class="setupFieldset" ><label>0.&nbsp;Automatic tests.</label>
+			<div id="automaticTests_div">
+				<div id="panelFPS" class="panel panel-warning">
+				<div class="panel-heading">Screen refresh-rate check</div>
+				<div id="resultFPS" class="panel-body">Testing the screen refresh-rate ...</div>
+				</div>
+
+				<div id="panelDevice"  class="panel panel-warning">
+				<div  class="panel-heading">Screen dimensions check</div>
+				<div id="resultDevice" class="panel-body"></div>
+				</div>
+				
+				<div id="windowSizePanel" class="panel panel-warning">
+					<div class="panel-heading">Window Size check</div>
+					<div id="windowSizeResult" class="panel-body"></div>
+				</div>
+
+				<div id="mobilePanel" class="panel panel-warning">
+					<div class="panel-heading">Mobile phone check</div>
+					<div id="mobileResult" class="panel-body"></div>
+				</div>
+				<div id="BrowserPanel" class="panel panel-warning">
+					<div class="panel-heading">Browser check</div>
+					<div id="BrowserResult" class="panel-body"></div>
+				</div>
+			</div>
+
+			<div id="HardwareResult" class="alert alert-warning" role="alert">
+			Hardware Tests are being conducted
+			</div>
+
+
+			<div id="dpi" style="width: 1cm; left: 100%; position: fixed; top: 100%;"></div>
+		</fieldset>
+		<br>
+			<!--/automatic tests-->	
+
+
+	  </div>
+  </div>
+</div>
+
+</section>
+<!-- Setup  ends-->
+
+
+
+<!--hidden inputs-->
+<fieldset id="hidden_info">
+			<!--results of automatic tests-->	
+			<input type="hidden" id="automaticTests" name="automaticTests" value="false">
+
+</fieldset>
+
+<!--script for reading the data from config-->
+<script>
+	//setting the title
+	document.getElementsByTagName("title")[0].innerHTML=config.pageTitle;
+	
+</script>
+<!--scripts for automatic tests-->
+<script>
+const NumberOfTests=config.automatic_test.number_of_tests;
+const CallBackAllPassed=passedAll;
+const CallBackAnyFailed=AnyFailed;
+
+
+
+
+
+//all tests were passed
+function passedAll(){
+  let HardwareResult=document.getElementById("HardwareResult");
+  let hiddenResult=document.getElementById("automaticTests");
+
+  hiddenResult.setAttribute("value","true");
+  HardwareResult.setAttribute("class","alert alert-success");
+  HardwareResult.innerHTML=config.automatic_test.general.success;
+
+}
+
+//at least one test failed
+function AnyFailed(){
+  let HardwareResult=document.getElementById("HardwareResult");
+  HardwareResult.setAttribute("class","alert alert-danger");
+  HardwareResult.innerHTML=config.automatic_test.general.fail;
+}
+
+
+</script>
+<script src="assets/js/utility.js"></script>
+<script src="assets/js/combinedTests.js"></script>
+<script src="assets/js/fps.js"></script>
+<script src="assets/js/screenSize.js"></script>
+<script src="assets/js/WindowSize.js"></script>
+<script src="assets/js/device.js"></script>
+<script src="assets/js/browser.js"></script>
+
+<!--/scripts for automatic tests-->
+
+
+
