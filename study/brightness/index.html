@@ -1,0 +1,127 @@
+<html>
+    <head>
+        	<!-- bootstrap4 -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/instrctions.js"></script>
+        <title>Instructions</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark main">
+            <div class="navbar-brand" >Brightness Test</div>
+            <div class="mynav">
+                <a class="nav-link active" href="#"><strong>Instructions </strong></a>
+                <a class="nav-link " href="dark_50/index.html"><strong>First Test </strong></a>
+                <a class="nav-link " href="dark_100/index.html"><strong>Second Test</strong> </a>
+                <a class="nav-link " href="dark_comfortable/index.html"><strong>Third Test</strong> </a>
+                <a class="nav-link " href="light_50/index.html"><strong>Fourth Test</strong> </a>
+                <a class="nav-link " href="light_100/index.html"><strong>Fifth Test</strong> </a>
+                <a class="nav-link " href="light_comfortable/index.html"><strong>Sixth Test</strong> </a>
+            </div>
+        </nav>
+
+
+        <div class="outer">
+            <div class="panel panel-info main">
+                <div class="panel-heading title">Welcome to the Brightness Test!</div>
+                <div class="panel-body">
+                    <p>
+                    Your participation in this test will help us to implement a framework that support the scientists by collecting the data needed for their expirements.
+                    In this page you need to fill some information about yourself and to answer some questions about your device.
+                    </p>
+                    <div class="alert alert-warning">
+                        <strong>Impotant:</strong> <br>
+                        1- Please use a computer to participate in the tasks<br>
+                        2- After finishing each task a file will be generated. Please save it on your computer<br>
+                        3- After finishing all tasks please send all files to this Email-address: a.beshtawi@tu-berlin.de<br>
+                        4- Follow the instructions of each task to help us getting the best result.<br>
+                        <strong>THANKS!</strong>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>Helpful links:</strong> <br>
+                        Ine the next tasks you will be asked to change brightness of your screen, if you don't know how to change the screen beightness please open the link for your operating system:<br>
+                        Windows: <a href="https://www.howtogeek.com/241771/how-to-adjust-your-pcs-screen-brightness-manually-and-automatically/" target="_blank">Click here</a> <br>
+                        Ubuntu: <a href="https://help.ubuntu.com/stable/ubuntu-help/display-brightness.html.en" target="_blank">Click here</a> <br>
+                        Kali Linux: <a href="https://ostechnix.com/how-to-adjust-monitor-brightness-from-command-line-in-linux/" target="_blank">Click here</a> 
+                    </div>
+                    <div class="panel panel-info">
+                    <div class="panel-heading title">General Information</div>
+                    <div class="panel-body">
+                        <p>Please answer the following questions and download the file provided after finishing this task</p>
+
+                        <div id="qualification" >
+                            <div class="singleInput">
+                            First Name: 
+                            <input class="form-control myinput" name="first name" type="text" placeholder="Enter your first name">
+                            </div>
+                            <div class="singleInput">
+                            Last Name:
+                            <input class="form-control myinput" name="last name" type="text" placeholder="Enter your last name">
+                            </div>
+                            <div class="singleInput">
+                                Age:
+                                <input class="form-control myinput" name="age" type="number" placeholder="Enter your age">
+                            </div>
+                            <div class="singleInput">
+                                Screen/Laptop modell:
+                                <input class="form-control myinput" name="laptop/screen:" type="text" placeholder="like LG,Apple,Lenovo,...">
+                            </div>
+                            <div class="singleInput">
+                                screen height:
+                                <input class="form-control myinput" name="screen height" type="number" placeholder="In cm">
+                            </div>
+                            <div class="singleInput">
+                                screen width:
+                                <input class="form-control myinput" name="screen width" type="number" placeholder="In cm">
+                            </div>
+                            <div class="singleInput">
+                                I belive, ...
+                                <div class="multi">
+                                <input type="radio" name="color_blindness" value="no_color_blindness">&nbsp;I have no color blindness.
+                                </div>
+                                <div class="multi">
+                                  <input type="radio" name="color_blindness" value="Red_green_blindness">&nbsp;I have Red green color blindness.
+                                </div>
+                                <div class="multi">
+                                    <input type="radio" name="color_blindness" value="Blue_yellow_blindness">&nbsp;I have Blue yellow color blindness.
+                                </div>
+                                <div class="multi">  
+                                    <input type="radio" name="color_blindness" value="Complete_color_blindness">&nbsp;I have Complete color blindness.
+                                </div>
+                            </div>
+                            <div class="singleInput">
+                                I belive, ...
+                                <div class="multi">
+                                <input  type="checkbox" name="seeing" value="normal">&nbsp;I have a normal vision.
+                                </div>
+                                <div class="multi">
+                                  <input type="checkbox" name="seeing" value="nearsightedness">&nbsp;I have nearsightedness.
+                                </div>
+                                <div class="multi">
+                                    <input type="checkbox" name="seeing" value="farsightedness">&nbsp;I have farsightedness.
+                                </div>
+                                <div class="multi">  
+                                    <input type="checkbox" name="seeing" value="Diabetic_retinopathy">  &nbsp;I have Diabetic retinopathy.
+                                </div>
+                                <div class="multi">  
+                                    <input type="checkbox" name="seeing" value="blindness">  &nbsp;I have complete blindness.
+                                </div>
+                            </div>
+                            <div class="main">
+                            <button class="btn btn-primary btn-lg active buttonCentered" onclick="readData()">Download Results</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

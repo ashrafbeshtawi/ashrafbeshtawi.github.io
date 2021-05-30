@@ -1,0 +1,51 @@
+.main{
+    width: 75%;
+    margin: auto;
+
+
+}
+.outer{
+    padding: 10px;
+}
+
+.title{
+    font:normal small-caps normal 16px/1.4 Georgia;
+}
+
+
+
+.mynav{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 50%;
+}
+
+
+.active{
+    
+}
+
+
+.singleInput{
+    padding: 5px;
+}
+.myinput{
+    width: 35%;
+}
+
+.multi{
+    padding: 3px;
+    left:3%;
+
+}
+
+.buttonCentered{
+    position: relative;
+    left: 45%;
+}
+
+
+
+

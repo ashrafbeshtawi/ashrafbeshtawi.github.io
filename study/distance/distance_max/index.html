@@ -1,0 +1,139 @@
+<!--
+/*---------------------------------------------------------------------------------------------
+*  Copyright (c) Microsoft Corporation. All rights reserved.
+*  Licensed under the MIT License. See License.txt in the project root for license information.
+*--------------------------------------------------------------------------------------------*/
+@author: Babak Naderi
+
+-->
+<html>
+
+<head>
+	<!-- bootstrap4 -->
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/index.css">
+
+	<!--
+	<script src="assets/js/jquery-3.4.1.min.js"></script>
+	-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<!-- custom css/js files-->
+	<link rel="stylesheet" type="text/css" href="assets/css/env_test_main.css">
+	<script src="assets/js/env_test_main.js"></script>
+
+	<title>Environment Test</title>
+
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+</head>
+
+<!-- End Instructions -->
+<!-- Survey Body -->
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark main">
+		<div class="navbar-brand">Distance Test</div>
+		<div class="mynav">
+			<a class="nav-link active" href="../index.html"><strong>Instructions </strong></a>
+			<a class="nav-link " href="../distance_comfortable/index.html"><strong>First Test </strong></a>
+			<a class="nav-link " href="#"><strong>Second Test</strong> </a>
+			<a class="nav-link " href="../distance_recommended/index.html"><strong>Third Test</strong> </a>
+		</div>
+
+</nav>
+
+	<div class="outer">
+
+
+			<div class=" main">
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title title">
+							<a data-toggle="collapse">Welcome to the Distance Test! (maximum distance)</a>
+						</h3>
+					</div>
+
+					<div id="collapse1" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<p>In this test, pairs of images will be presented to you. Please watch to the both images
+								and select which one has the best quality. Next pair of images will be selected according to your answers.</p>
+
+							<div class="alert alert-warning">
+								<strong>Impotant:</strong> <br>
+								1- Please use a computer to participate in the tasks<br>
+								2- After finishing each task a file will be generated. Please save it on your
+								computer<br>
+								3- After finishing all tasks please send all files to this Email-address:
+								a.beshtawi@tu-berlin.de<br>
+								4- Follow the instructions of each task to help us getting the best result.<br>
+								<strong>THANKS!</strong>
+							</div>
+							</fieldset>
+							<div class="alert alert-primary">
+							<p>You should do this task from the maximum distance from the screen while you still can interact with the computer.</p>
+							</div>
+							<fieldset><label>1.&nbsp; From which distance are you doing the task: (from how many meters : like 150 cm, 175 cm ,..)</label>
+								<div align="center"><input id="distance" name="distance" required="" size="50"
+										type="text" /> </div>
+
+							</fieldset>
+
+
+							<fieldset><label>2. After clicking start you will see copies of this image with different quality  and your task is to choose the image with the heighest quality.</label>
+
+								<p align="center">
+
+									<img src="assets/jnd_image/19.jpg" height=300 width=500>
+								</p>
+
+
+
+								<div class="main" >
+									<button type="button" class="btn btn-success buttonCentered" onclick="start();">Start</button>
+								</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<div class="main">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<a data-toggle="collapse" href="#collapse1">Pairs</a>
+						</h3>
+					</div>
+
+					<div id="collapse1" class="panel-collapse collapse in">
+						<div class="panel-body" id="cmp-body">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+	</div>
+
+		<!-- Setup -->
+
+		<style type="text/css">
+			fieldset {
+				padding: 10px;
+				background: #fbfbfb;
+				border-radius: 5px;
+				margin-bottom: 5px;
+			}
+		</style>
+
+</body>
+
+</html>
