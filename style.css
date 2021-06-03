@@ -1,0 +1,159 @@
+body{
+    font-family: 'Mate SC', serif;
+    margin: 0px;
+}
+.nav-wrapper {
+    /* set child of this element beside each other*/
+    display: flex;
+    /* maximaize the space between this flex element*/
+    justify-content: space-between;
+    /*add side-space in each direction for this element*/
+    padding: 38px;
+
+}
+
+.left-side {
+    display: flex;
+}
+
+
+/*
+selecting each div in class left side inside class nav-wrapper 
+this is equal to selectin class .nav-link-wrapper 
+
+- adding space right to each div 20 px
+- fond size = 0.9 * font size
+- text to upper case
+*/
+.nav-wrapper>.left-side>div {
+    margin-right: 20px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    
+}
+
+
+/*
+color is gray 
+remove all default text decoration of a
+transition takes 0.5 second
+*/
+.nav-link-wrapper > a{
+    color: #8a8a8a;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.nav-link-wrapper > hr{
+    opacity:0;
+}
+
+
+.nav-link-wrapper > a:hover{
+    color: red;
+
+}
+
+.nav-link-wrapper > a:hover +hr{
+    opacity:1;
+
+}
+
+
+
+/* contents css*/
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.portfolio-items-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.portfolio-item-wrapper{
+    position: relative;
+}
+
+.portfolio-img-background{
+    height: 350px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+.portfolio-text{
+    position: absolute;
+    top:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.portfolio-icon  img{
+    width: 50%;
+    margin-bottom: 20px;
+
+}
+
+.sub-title{
+
+    font-weight: 600;
+    color: white;
+}
+
+.sub-text{
+    opacity:0;
+    color: white;
+}
+
+/* animation */
+
+/* mouse over*/
+.portfolio-item-wrapper:hover > .portfolio-img-background{
+    transition: 1s;
+    filter: brightness(10%);
+
+}
+.portfolio-item-wrapper:hover > .portfolio-text >.sub-title{
+    transition: 1s;
+    opacity:1;
+    color: lightseagreen;
+
+}
+.portfolio-item-wrapper:hover > .portfolio-text >.sub-text{
+    transition: 1s;
+    opacity:1;
+
+}
+/* mouse away*/
+.portfolio-item-wrapper:not(:hover) > .portfolio-img-background{
+    transition: 1s;
+    filter: brightness(100%);
+
+}
+
+.portfolio-item-wrapper:not(:hover) > .portfolio-text >.sub-title{
+    transition: 1s;
+    color: white;
+
+}
+
+.portfolio-item-wrapper:not(:hover) > .portfolio-text >.sub-text{
+    transition: 1s;
+    opacity:0;
+
+}
+
+
+
+
+
+
+
