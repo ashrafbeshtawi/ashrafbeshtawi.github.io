@@ -7,6 +7,7 @@
 
 // add recommended distance
 let recommended_distance_target=document.getElementById("recommended_distance");
+let recommended_distance_modal=document.getElementById("recommended_distance_modal");
 let recommended_distance =localStorage.getItem("Exp_screen_height");
 
 if(recommended_distance==null){
@@ -16,6 +17,7 @@ if(recommended_distance==null){
 }
 recommended_distance=parseInt(recommended_distance)*3;
 recommended_distance_target.innerHTML=recommended_distance;
+recommended_distance_modal.innerHTML=recommended_distance;
 // JND setup: Adaptive staircase: 3AFC, 2 down- 1 up: targets 70.7% levelA
 var config ={
     jndMaxQuestions:45, // maximum number of questions
@@ -246,7 +248,7 @@ function submitAnsJnd(qNum,aSNR,bSNR){
 	selected= parseInt(ans);
 	isCorrect=false;
 	console.log("selected:"+selected);
-	if ((aSNR>=bSNR && selected==aSNR )||(aSNR<=bSNR && selected==bSNR ) || (aSNR==bSNR && selected==-1 ))
+	if ((aSNR>bSNR && selected==aSNR )||(aSNR<bSNR && selected==bSNR ) || (aSNR==bSNR && selected==-1 ))
 		isCorrect=true;
 
 	entry= new LogEntryJND(qNum,aSNR,bSNR,ans, isCorrect);
@@ -291,8 +293,7 @@ function getNextQuestion(){
      2. "it is recommended that test-ing continue for at least seven reversals, and that the last six reversals be used
      in obtaining the estimate." [Levit t , H. (1992)]
      */
-	if (currentQuestionNum<=config.jndMaxQuestions &&
-	    reversalAtSNRIndex < reversalAtSNR.length){
+	if (currentQuestionNum<=config.jndMaxQuestions && reversalAtSNRIndex < reversalAtSNR.length && questionAskedPerSNRLevel[questionAskedPerSNRLevel.length-1]<=2){
 		nextQuestionSNR=currentSNRIndex + config.snrStart;
 		//reached the upper range
 		if (nextQuestionSNR>config.snrEnd){
@@ -334,7 +335,8 @@ var targetSNrLevel=-1;
 function finished(){
 	name=$('#p_name').val();
 	exFileName="task_3.csv";
-	template='<h3> <p>Finished!. Please download the result file to your computer.</p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div></h3>';
+	template=`
+		<button class="btn btn-primary btn-lg active buttonCenteredResults" onclick="downloadCSV();">Download Results</button>`;
 
 	console.log("jndSuccessAnsPerQuestion: "+ successAnsPerSNRLevel.toString());
 	console.log("questionAsked: "+questionAskedPerSNRLevel.toString());

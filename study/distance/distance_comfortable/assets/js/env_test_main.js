@@ -134,6 +134,8 @@ function ratio(arrayA,arrayB){
 }
 
 function downloadCSV() {
+		//view next task button
+		document.getElementById("nextTask").setAttribute("style","");
         var data, filename, link;
         var csv = convertLogsToCSV();
         if (csv == null) return;
@@ -226,16 +228,14 @@ function submitAnsJnd(qNum,aSNR,bSNR){
 	}
 	//disable next button
 	$('#bt'+qNum).prop("disabled", true);
-	// stop audio playing
-	$("audio").each(function(index, audio) {
-			audio.pause();
-		});
+
+
 
 	ans=document.querySelector('input[name="cmp'+qNum+'"]:checked').value;
 	selected= parseInt(ans);
 	isCorrect=false;
 	console.log("selected:"+selected);
-	if ((aSNR>=bSNR && selected==aSNR )||(aSNR<=bSNR && selected==bSNR ) || (aSNR==bSNR && selected==-1 ))
+	if ((aSNR>bSNR && selected==aSNR )||(aSNR<bSNR && selected==bSNR ) || (aSNR==bSNR && selected==-1 ))
 		isCorrect=true;
 
 	entry= new LogEntryJND(qNum,aSNR,bSNR,ans, isCorrect);
@@ -279,9 +279,8 @@ function getNextQuestion(){
      1. should not ask more than config.jndMaxQuestions questions.
      2. "it is recommended that test-ing continue for at least seven reversals, and that the last six reversals be used
      in obtaining the estimate." [Levit t , H. (1992)]
-     */
-	if (currentQuestionNum<=config.jndMaxQuestions &&
-	    reversalAtSNRIndex < reversalAtSNR.length){
+     */																								// the end of range not resched more than 2 times
+	if (currentQuestionNum<=config.jndMaxQuestions && reversalAtSNRIndex < reversalAtSNR.length && questionAskedPerSNRLevel[questionAskedPerSNRLevel.length-1]<=2){
 		nextQuestionSNR=currentSNRIndex + config.snrStart;
 		//reached the upper range
 		if (nextQuestionSNR>config.snrEnd){
@@ -323,8 +322,10 @@ var targetSNrLevel=-1;
 function finished(){
 	name=$('#p_name').val();
 	exFileName="task_1.csv";
-	template='<h3> <p>Finished!. Please download the result file to your computer.</p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div></h3>';
-
+	template=`
+		<button class="btn btn-primary btn-lg active buttonCenteredResults" onclick="downloadCSV();">Download Results</button>
+		&nbsp;&nbsp;&nbsp;
+	 	<button class="btn btn-success btn-lg active buttonCenteredResults" style="display:none;" id="nextTask" onclick="window.location.href='../distance_max/index.html'">Next Task</button>`
 	console.log("jndSuccessAnsPerQuestion: "+ successAnsPerSNRLevel.toString());
 	console.log("questionAsked: "+questionAskedPerSNRLevel.toString());
 	console.log("currentSNRIndex: "+currentSNRIndex);

@@ -26,14 +26,54 @@
 <!-- Survey Body -->
 
 <body>
-
+<!-- Modal -->
+<div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Instructions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+			<div class="alert alert-primary" role="alert">
+				<p>You should do this task in a dark room with any screen brightness you find comfortable.</p>
+			</div>
+            <div class="alert alert-primary" role="alert">
+				<p>If you can't see the number in the image then enter any number and click next</p>
+            </div>
+                <strong>Helpful links:</strong> <br>
+                In the tasks you will be asked to change brightness of your screen, if you don't know
+                how to change the screen beightness please open the link for your operating system:<br>
+                Windows: <a
+                    href="https://www.howtogeek.com/241771/how-to-adjust-your-pcs-screen-brightness-manually-and-automatically/"
+                    target="_blank">Click here</a> <br>
+                Ubuntu: <a href="https://help.ubuntu.com/stable/ubuntu-help/display-brightness.html.en"
+                    target="_blank">Click here</a> <br>
+                Kali Linux: <a
+                    href="https://ostechnix.com/how-to-adjust-monitor-brightness-from-command-line-in-linux/"
+                    target="_blank">Click here</a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!--modal-->
+<script>
+  $(document).ready(function() {
+    $("#instructionsModal").modal();
+  });
+</script>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark main">
 		<div class="navbar-brand" >Brightness Test</div>
 		<div class="mynav">
 			<a class="nav-link active" href="../index.html"><strong>Instructions </strong></a>
 			<a class="nav-link " href="../dark_50/index.html"><strong>First Test </strong></a>
 			<a class="nav-link " href="../dark_100/index.html"><strong>Second Test</strong> </a>
-			<a class="nav-link " href="#"><strong>Third Test</strong> </a>
+			<a class="nav-link " href="#"><strong style="color:rgb(252, 0, 0);">Third Test</strong> </a>
 			<a class="nav-link " href="../light_50/index.html"><strong>Fourth Test</strong> </a>
 			<a class="nav-link " href="../light_100/index.html"><strong>Fifth Test</strong> </a>
 			<a class="nav-link " href="../light_comfortable/index.html"><strong>Sixth Test</strong> </a>
@@ -59,7 +99,7 @@
 							Simply enter the three numbers that you have seen on the answer box below each audio file,
 							and click on <b>"Next"</b>.
 							The test will stop automatically. </p>
-						<div class="alert alert-info" role="alert">
+						<div class="alert alert-primary" role="alert">
 							<p>You should do this task in a dark room with any screen brightness you find comfortable.</p>
 						</div>
 						<div class="alert alert-warning">

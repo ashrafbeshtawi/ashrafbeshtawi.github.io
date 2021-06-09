@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark main">
             <div class="navbar-brand" >Brightness Test</div>
             <div class="mynav">
-                <a class="nav-link active" href="#"><strong>Instructions </strong></a>
+                <a class="nav-link active" href="#"><strong style="color:rgb(252, 0, 0);">Instructions </strong></a>
                 <a class="nav-link " href="dark_50/index.html"><strong>First Test </strong></a>
                 <a class="nav-link " href="dark_100/index.html"><strong>Second Test</strong> </a>
                 <a class="nav-link " href="dark_comfortable/index.html"><strong>Third Test</strong> </a>
@@ -65,16 +65,23 @@
                                 <input class="form-control myinput" name="age" type="number" placeholder="Enter your age">
                             </div>
                             <div class="singleInput">
-                                Screen/Laptop modell:
+                                Screen/Laptop modell:  (If your computer has more than one screen then write the modell of the screen you are using to view this page)
                                 <input class="form-control myinput" name="laptop/screen:" type="text" placeholder="like LG,Apple,Lenovo,...">
                             </div>
-                            <div class="singleInput">
-                                screen height:
-                                <input class="form-control myinput" name="screen height" type="number" placeholder="In cm">
-                            </div>
-                            <div class="singleInput">
-                                screen width:
-                                <input class="form-control myinput" name="screen width" type="number" placeholder="In cm">
+                            <div id="screenDimension">
+                                <div id="screenDimensionImage">
+                                    <img src="images/screenDimensions.jpg">
+                                </div>
+                                <div id="screenDimensionInput">
+                                    <div class="singleInput">
+                                        screen height:
+                                        <input class="form-control myinput" name="screen height" type="number" placeholder="In cm">
+                                    </div>
+                                    <div class="singleInput">
+                                        screen width:
+                                        <input class="form-control myinput" name="screen width" type="number" placeholder="In cm">
+                                    </div>
+                                </div>
                             </div>
                             <div class="singleInput">
                                 I belive, ...
@@ -111,7 +118,8 @@
                             </div>
                             <div class="main">
                             <button class="btn btn-primary btn-lg active buttonCentered" onclick="readData()">Download Results</button>
-                            </div>
+                            <button class="btn btn-success btn-lg active buttonCentered" id="nextTask" style="display: none;" onclick="window.location.href='dark_50/index.html'">Next Task</button>
+                        </div>
                         </div>
                     </div>
                     </div>

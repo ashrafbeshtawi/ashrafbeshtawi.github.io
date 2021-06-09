@@ -373,7 +373,8 @@ var targetSNrLevel=-1;
 function finished(){
 	name=$('#p_name').val();
 	exFileName=name+"_brightness_test.csv";
-	template='<h3> <p>Finished!. Please download the result file to your computer. Thanks for your participation. </p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div></h3>';
+	template=`
+		<button class="btn btn-primary btn-lg active buttonCenteredResults" onclick="downloadCSV();">Download Results</button>`
 
 	console.log("jndSuccessAnsPerQuestion: "+ successAnsPerSNRLevel.toString());
 	console.log("questionAsked: "+questionAskedPerSNRLevel.toString());

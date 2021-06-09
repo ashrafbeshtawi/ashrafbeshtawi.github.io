@@ -43,9 +43,13 @@
 
 .buttonCentered{
     position: relative;
-    left: 35%;
+    left: 45%;
 }
 
+.buttonCenteredResults{
+    position: relative;
+    left: 35%;
+}
 
 
 

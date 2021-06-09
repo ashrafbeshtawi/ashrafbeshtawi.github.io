@@ -1,0 +1,56 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+<link rel="stylesheet" href="bootstrap.css">
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<script src="jquery.min.js"></script>
+<script src="bootstrap.js"></script>
+<script src="bootstrap.min.js"></script>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Instructions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-warning" role="alert">
+                <p>You should do this task in a dark room with the screen brightness set to 50%.</p>
+            </div>
+                <strong>Helpful links:</strong> <br>
+                In the tasks you will be asked to change brightness of your screen, if you don't know
+                how to change the screen beightness please open the link for your operating system:<br>
+                Windows: <a
+                    href="https://www.howtogeek.com/241771/how-to-adjust-your-pcs-screen-brightness-manually-and-automatically/"
+                    target="_blank">Click here</a> <br>
+                Ubuntu: <a href="https://help.ubuntu.com/stable/ubuntu-help/display-brightness.html.en"
+                    target="_blank">Click here</a> <br>
+                Kali Linux: <a
+                    href="https://ostechnix.com/how-to-adjust-monitor-brightness-from-command-line-in-linux/"
+                    target="_blank">Click here</a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!--modal-->
+<script>
+  $(document).ready(function() {
+    $("#instructionsModal").modal();
+  });
+</script>
+
+
+
+</html>

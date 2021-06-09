@@ -148,6 +148,8 @@ function ratio(arrayA,arrayB){
 }
 
 function downloadCSV() {
+		//view next task button
+		document.getElementById("nextTask").setAttribute("style","");
         var data, filename, link;
         var csv = convertLogsToCSV();
         if (csv == null) return;
@@ -373,7 +375,10 @@ var targetSNrLevel=-1;
 function finished(){
 	name=$('#p_name').val();
 	exFileName=name+"_brightness_test.csv";
-	template='<h3> <p>Finished!. Please download the result file to your computer. Thanks for your participation. </p><div class="row" style="margin-top:10px;" align="center">	<a href="#" onclick="downloadCSV();">Download the Results</a></div></h3>';
+	template=`
+		<button class="btn btn-primary btn-lg active buttonCenteredResults" onclick="downloadCSV();">Download Results</button>
+		&nbsp;&nbsp;&nbsp;
+	 	<button class="btn btn-success btn-lg active buttonCenteredResults" style="display:none;" id="nextTask" onclick="window.location.href='../light_50/index.html'">Next Task</button>`
 
 	console.log("jndSuccessAnsPerQuestion: "+ successAnsPerSNRLevel.toString());
 	console.log("questionAsked: "+questionAskedPerSNRLevel.toString());

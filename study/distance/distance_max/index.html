@@ -34,12 +34,48 @@
 <!-- Survey Body -->
 
 <body>
+	<!-- Modal -->
+	<div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Instructions</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-primary">
+						<p>You should do this task from the maximum distance from the screen while you still can interact with the computer.</p>
+						</div>
+					<strong>Impotant:</strong> <br>
+					1- Please use a computer to participate in the tasks<br>
+					2- After finishing each task a file will be generated. Please save it on your
+					computer<br>
+					3- After finishing all tasks please send all files to this Email-address:
+					a.beshtawi@tu-berlin.de<br>
+					4- Follow the instructions of each task to help us getting the best result.<br>
+					<strong>THANKS!</strong>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--modal-->
+	<script>
+		$(document).ready(function () {
+			$("#instructionsModal").modal();
+		});
+	</script>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark main">
 		<div class="navbar-brand">Distance Test</div>
 		<div class="mynav">
 			<a class="nav-link active" href="../index.html"><strong>Instructions </strong></a>
 			<a class="nav-link " href="../distance_comfortable/index.html"><strong>First Test </strong></a>
-			<a class="nav-link " href="#"><strong>Second Test</strong> </a>
+			<a class="nav-link " href="#"><strong style="color:rgb(252, 0, 0);">Second Test</strong> </a>
 			<a class="nav-link " href="../distance_recommended/index.html"><strong>Third Test</strong> </a>
 		</div>
 
@@ -77,6 +113,8 @@
 							<p>You should do this task from the maximum distance from the screen while you still can interact with the computer.</p>
 							</div>
 							<fieldset><label>1.&nbsp; From which distance are you doing the task: (from how many meters : like 150 cm, 175 cm ,..)</label>
+								<img src="../images/distanceFromScreen.jpg"  style="display: block;  margin-left: auto;margin-right: auto;width: 35%;">
+								<br/>
 								<div align="center"><input id="distance" name="distance" required="" size="50"
 										type="text" /> </div>
 

@@ -60,7 +60,8 @@ function readData(){
     //saving screen height and width for other tasks
     localStorage.setItem('Exp_screen_width', screen_width);
     localStorage.setItem('Exp_screen_height', screen_height);
-
+    //activating the next task button
+    document.getElementById("nextTask").setAttribute("style","")
     downloadCSV(data);
 
 }
