@@ -54,8 +54,7 @@ var direction =+1
 
 var fileName= "assets/num/{0}_{1}.jpg";
 
-var nums= ["024","093","135","156","246","282","286","289","340","359","401","468","534","591","626","628","680","802","815","913","962"];
-
+var nums= ["024","065","125","154","247","282","281","285","540","152","401","408","524","571","626","628","680","802","815","212","162"];
 /*
 Utility functions
 */
@@ -331,7 +330,7 @@ function getNextQuestion(){
      in obtaining the estimate." [Levit t , H. (1992)]
      */
 	if (currentQuestionNum<=config.jndMaxQuestions &&
-	    reversalAtSNRIndex < reversalAtSNR.length){
+	    reversalAtSNRIndex < reversalAtSNR.length && questionAskedPerSNRLevel[questionAskedPerSNRLevel.length-1]<=2){
 		nextQuestionSNR=currentSNRIndex + config.snrStart;
 		//reached the upper range
 		if (nextQuestionSNR>config.snrEnd){
