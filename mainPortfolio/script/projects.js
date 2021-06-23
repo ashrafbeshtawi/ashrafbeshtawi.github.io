@@ -8,7 +8,7 @@ error=[
         {
         //content related info
         title:"Ops",
-        image:"../image/projects/emptySection.jpg",
+        image:"./image/projects/emptySection.jpg",
         imgWidth:"320px",
         imgHeight:"310px",
         description:"It seems that i have not made realy expirence in this field yet.",
@@ -24,7 +24,7 @@ Frontend_projects=[
 {
     //content related info
     title:"Online servey app",
-    image:"../image/projects/webServey.png",
+    image:"./image/projects/webServey.png",
     imgWidth:"560px",
     imgHeight:"310px",
     description:"I have developed this app as a bachelor project. The main focus was to measure hardware related conditions on the pc of the clients using JavaScript",
