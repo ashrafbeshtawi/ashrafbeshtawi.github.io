@@ -35,7 +35,7 @@ Frontend_projects=[
 {
     //content related info
     title:"Candy Shop",
-    image:"../image/projects/candy.jpg",
+    image:"./image/projects/candy.jpg",
     imgWidth:"520px",
     imgHeight:"310px",
     description:"This Website was developed in very limited time and was part of recruiting tasks for a frontend developer position.",
@@ -46,7 +46,7 @@ Frontend_projects=[
 {
     //content related info
     title:"This website",
-    image:"../image/projects/mainPortfolio.png",
+    image:"./image/projects/mainPortfolio.png",
     imgWidth:"450px",
     imgHeight:"400px",
     description:"This website is a personal portfolio to show my work on many different projects. This project contains real-time 3D animations and the content is dynamically processed",
@@ -63,7 +63,7 @@ backend_projects=[
     {
     //content related info
     title:"Facebook pages manager",
-    image:"../image/projects/facebookPage.jpg",
+    image:"./image/projects/facebookPage.jpg",
     imgWidth:"500px",
     imgHeight:"280px",
     description:"A small app i created in the beginning to automate some tasks in my facebook page like answering messages. After a while more user started using it. The app lets the user automate answering messages and replying to comments on his facebook page.",
@@ -79,7 +79,7 @@ python=[
 {
     //content related info
     title:"Cryptocurrency Trading-bot",
-    image:"../image/projects/crypto.jpg",
+    image:"./image/projects/crypto.jpg",
     imgWidth:"500px",
     imgHeight:"300px",
     description:"This bot collects data about any given cryptocurrency and calculates some financial indicators like MACD,RSI,...",
@@ -90,7 +90,7 @@ python=[
 {
     //content related info
     title:"Covid 19 Datascience project",
-    image:"../image/projects/covid.jpg",
+    image:"./image/projects/covid.jpg",
     imgWidth:"400px",
     imgHeight:"300px",
     description:"This project aimed to collect data about the lockdown period in each country and analyse the lockdown measures and the results and report the correlations found",
@@ -101,7 +101,7 @@ python=[
 {
 //content related info
 title:"Webscraping for online games",
-image:"../image/projects/travian.jpg",
+image:"./image/projects/travian.jpg",
 imgWidth:"500px",
 imgHeight:"300px",
 description:"This bot can visits an online game called travian and performs automated tasks on behalf of the user",
@@ -118,7 +118,7 @@ ai=[
     {
     //content related info
     title:"Neuralnetwork Framework",
-    image:"../image/projects/neuralnetwork.png",
+    image:"./image/projects/neuralnetwork.png",
     imgWidth:"500px",
     imgHeight:"350px",
     description:"This framework allows users to create neuralnetworks easily with any number of layers and neurons and train them on any given training data.",
@@ -130,7 +130,7 @@ ai=[
 {
     //content related info
     title:"Machine learning",
-    image:"../image/projects/machine.jpg",
+    image:"./image/projects/machine.jpg",
     imgWidth:"550px",
     imgHeight:"350px",
     description:"Simple implementaion for popular machine learning methods.",
@@ -148,7 +148,7 @@ CJava=[
     {
     //content related info
     title:"Quote Server",
-    image:"../image/projects/server.jpg",
+    image:"./image/projects/server.jpg",
     imgWidth:"480px",
     imgHeight:"300px",
     description:"simple implementaion for Client/Server which requests/provide quote of the day responses",
@@ -159,7 +159,7 @@ CJava=[
 {
 //content related info
 title:"Chatbot",
-image:"../image/projects/chatbot.png",
+image:"./image/projects/chatbot.png",
 imgWidth:"600px",
 imgHeight:"300px",
 description:"A kitchen assistent, which uses many different machine learning and pattern matching methods to provide recipe suggestions and answer basic questions",
@@ -175,7 +175,7 @@ other=[
     {
     //content related info
     title:"Assembly",
-    image:"../image/projects/assembly.jpg",
+    image:"./image/projects/assembly.jpg",
     imgWidth:"600px",
     imgHeight:"300px",
     description:"I created this project as a part of teching event at my university to show students how to conver C code to assembly",
