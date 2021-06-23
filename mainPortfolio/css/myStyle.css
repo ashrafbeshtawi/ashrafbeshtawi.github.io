@@ -1,0 +1,228 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Zilla Slab', serif;
+}
+
+
+.header { grid-area: header; }
+.navigation { grid-area: navigation; }
+.main { grid-area: main; }
+
+
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'navigation navigation navigation navigation navigation navigation'
+    'main main main main main main '
+    'main main main main main main '
+    'main main main main main main '
+    'main main main main main main '
+    'main main main main main main ';
+
+
+}
+
+.grid-container > div {
+  text-align: center;
+  font-size: 30px;
+}
+
+html,
+body
+{
+    color: aliceblue;
+    background-color: #21282a;
+    font-family: 'Poppins';
+}
+
+
+.main{
+    width: 100%;
+    position: relative;
+}
+
+
+
+
+.projectControl{
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position:absolute;
+}
+
+
+
+.webgl
+{
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+.myCanvas{
+  margin: auto;
+}
+
+
+.arrow{
+  margin:auto;
+  width: 65px;
+  height: 100%;
+  padding: 10px;
+  opacity: 0;
+  transition: 1s;
+}
+
+#last{
+  margin-right: 1%;
+}
+#next{
+  margin-left: 1%;
+}
+/*Arrow animation*/
+.arrow:hover >img {
+  width: 60px;
+  height: 60px;
+  transition: 1s;
+}
+
+.arrow:not(:hover) >img {
+  width: 50px;
+  height: 50px;
+  transition: 1s;
+}
+
+
+
+/*Header*/
+.header{
+  background-color: #131921;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerContainerText{
+  padding-top: 8px;
+
+}
+.headerContainerImage{
+  padding-top: 5px;
+
+}
+
+
+/*navigation*/
+
+.navigation{
+  height: 30px;
+  font-size: 25px !important;
+  display: flex;
+  background-color: #232f3e;
+  justify-content:space-around;
+  border:#475b74 ;
+  border-style: solid;
+}
+
+.navElement{
+  height: 30px;
+  width: 200px;
+  cursor: pointer;
+
+}
+.navElement:hover{
+  height: 28px;
+  width: 198px;
+  border: 1px solid white;
+
+}
+
+
+
+/*main content*/
+.hide{
+  opacity: 0;
+  transition: 1s;
+}
+.show{
+  background-color: whitesmoke;
+  opacity: 0.92;
+  transition: 1s;
+}
+.showArrow{
+  opacity: 1;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.projectContent{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  border: 2px solid;
+  width: 50%;
+
+
+}
+
+
+
+
+.projectContent > div{
+  margin: 10px;
+}
+
+#contentTitle{
+  margin-top: 0px;
+  width: 99%;
+  background-color: #232f3e;
+  border:#475b74 ;
+  border-style: solid;
+}
+
+.left{
+
+
+  color:black ;
+  font-size: 22px;
+  width: 100%;
+  text-align: left;
+}
+
+.text{
+  margin-left: 30px;
+  margin-right: 10px;
+  color: rgb(44, 38, 38);
+}
+
+.link{
+  color: brown;
+}
+
+/*button container*/
+.buttonContainer{
+  display: flex;
+  justify-content: space-evenly;
+  width: 70%;
+}
+
+.button{
+
+  width: 40%;
+  border-radius: 10px;
+  background-color: #232f3e;
+  cursor: pointer;
+}
+
+.button:hover{
+  background-color: black;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/myStyle.css?q=0">
+    <script>
+        let starDirection=1;
+    </script>
+    <script src="script/script.js?q=0" type="module"></script> 
+
+
+
+    <title>ThreeJS Starter</title>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="header">
+            <div class="headerContainerText">
+                <div class="headerText">Portfolio of Ashraf Beshtawi&nbsp;&nbsp;</div>
+            </div>
+            <div class="headerContainerImage">
+                    <img src="image/mainIcon.png" width="60px" height="50px"alt="">
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="navElement" >Frontend projects</div>
+            <div class="navElement">Backend projects</div>
+            <div class="navElement">Python</div>
+            <div class="navElement">AI</div>
+            <div class="navElement">Java/C</div>
+            <div class="navElement">other projects</div>
+        </div>
+        <div id="main" class="main">
+            <div class="projectControl">
+                <div id="last" onclick="lastProject()" class="arrow">
+                    <img src="./image/arrowLeft.png" width="50px" height="50px">
+                </div>
+                <div id="projectContent" class="projectContent hide" project="">
+                    <div id="contentTitle"></div>
+                    <div id="contentImg">
+                        <img>
+                    </div>
+                    <div id="contentDescibtion" class="left"></div>
+                    <div id="contentTime" class="left"></div>
+                    <div id="contentTech" class="left"></div>
+                    <div id="contentLink" class="left"></div>
+                    <div class="buttonContainer">
+                        <div id="close" class="button">Close</div>
+                        <div id="open" class="button">    <a style="color: aliceblue;text-decoration: none;" href="" target="_blank">Open Project</a></div>
+
+                    </div>                
+                </div>
+                <div id="next" onclick="nextProject()" class="arrow">            	
+                    <img src="./image/arrowRight.png" width="50px" height="50px">
+                </div>
+            </div>
+            <div class="myCanvas">
+                <canvas class="webgl"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="script/mainScript.js?q=0"></script> 
+    <script src="script/projects.js?q=0"></script> 
+</body>
+</html>
