@@ -1,10 +1,10 @@
-import * as THREE from '../threejs/three.module.js'
+import * as THREE from './threejs/three.module.js'
 
 
 
 // textuer loader
 const loader = new THREE.TextureLoader();
-const star = loader.load('../image/star.png');
+const star = loader.load('./image/star.png');
 
 
 // Canvas
