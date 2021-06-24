@@ -332,7 +332,8 @@ function getNextQuestion(){
      2. "it is recommended that test-ing continue for at least seven reversals, and that the last six reversals be used
      in obtaining the estimate." [Levit t , H. (1992)]
      */
-	if (currentQuestionNum<=config.jndMaxQuestions && reversalAtSNRIndex < reversalAtSNR.length && questionAskedPerSNRLevel[questionAskedPerSNRLevel.length-1]<=2){
+	if (currentQuestionNum<=config.jndMaxQuestions &&
+	    reversalAtSNRIndex < reversalAtSNR.length){
 		nextQuestionSNR=currentSNRIndex + config.snrStart;
 		//reached the upper range
 		if (nextQuestionSNR>config.snrEnd){
