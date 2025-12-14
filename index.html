@@ -1,24 +1,343 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title> Ashraf Beshtawi </title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashraf Beshtawi - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1d3abb 0%, #25be4b 100%);
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(252, 163, 17, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 650px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            html, body {
-                height: 100%;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            iframe {
+        }
+
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-weight: 300;
+            animation: fadeIn 1s ease-out 0.4s both;
+        }
+
+        .suggestion-text {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .countdown {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 35px;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        .button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button.suggested {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(255, 255, 255, 0.3),
+                    0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(255, 255, 255, 0.5),
+                    0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        .button.suggested::after {
+            content: '✨';
+            margin-left: 8px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 40px 25px;
+                border-radius: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .suggestion-text {
+                font-size: 1em;
+                padding: 15px;
+            }
+
+            .button {
+                padding: 15px 30px;
+                font-size: 1em;
+                min-width: unset;
                 width: 100%;
-                height: 100%;
-                border: none;
             }
-        </style>
-    </head>
-    <body>
-        <iframe src="https://studio-gamma-weld.vercel.app/" title="Personal portfolio"></iframe>
-    </body>
+
+            .options {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ashraf Beshtawi</h1>
+        <div class="subtitle">Full Stack Developer</div>
+        <p class="suggestion-text"></p>
+        <p class="countdown"></p>
+        <div class="options">
+            <a href="#" class="button" id="3d-version">3D Version</a>
+            <a href="#" class="button" id="mobile-version">Mobile Version</a>
+        </div>
+    </div>
+
+    <script>
+        const DESKTOP_URL = 'https://horus-rho.vercel.app/';
+        const MOBILE_URL = 'https://studio-gamma-weld.vercel.app/';
+        const AUTOMATIC_REDIRECT_IN_SECONDS = 15;
+        let displayTime = AUTOMATIC_REDIRECT_IN_SECONDS;
+        let redirectTimer;
+        let countdownTimer;
+        
+        const suggestionTextElement = document.querySelector('.suggestion-text');
+        const countdownElement = document.querySelector('.countdown');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileVersionButton = document.getElementById('mobile-version');
+            const threeDVersionButton = document.getElementById('3d-version');
+
+            const isMobileDevice = () => {
+                return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            };
+
+            let suggestionText = '';
+            let redirectUrl = '';
+
+            if (isMobileDevice()) {
+                suggestionText = "📱 It looks like you're on a mobile device. We suggest the Mobile Version for the best experience!";
+                mobileVersionButton.classList.add('suggested');
+                redirectUrl = MOBILE_URL;
+            } else {
+                suggestionText = "💻 It looks like you're on a desktop device. We suggest the 3D Version for the best experience!";
+                threeDVersionButton.classList.add('suggested');
+                redirectUrl = DESKTOP_URL;
+            }
+
+            suggestionTextElement.textContent = suggestionText;
+            updateCountdown();
+            redirectInSeconds(redirectUrl, AUTOMATIC_REDIRECT_IN_SECONDS);
+
+            threeDVersionButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearTimers();
+                window.location.href = DESKTOP_URL;
+            });
+
+            mobileVersionButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearTimers();
+                window.location.href = MOBILE_URL;
+            });
+        });
+
+        function updateCountdown() {
+            if (displayTime > 0) {
+                countdownElement.textContent = `⏱️ Redirecting in ${displayTime} second${displayTime !== 1 ? 's' : ''}... Or choose your experience now!`;
+            } else {
+                countdownElement.textContent = 'Redirecting now...';
+            }
+        }
+
+        function redirectInSeconds(url, seconds) {
+            redirectTimer = setTimeout(() => {
+                window.location.href = url;
+            }, seconds * 1000);
+
+            countdownTimer = setInterval(() => {
+                displayTime--;
+                updateCountdown();
+                if (displayTime <= 0) {
+                    clearInterval(countdownTimer);
+                }
+            }, 1000);
+        }
+
+        function clearTimers() {
+            if (redirectTimer) clearTimeout(redirectTimer);
+            if (countdownTimer) clearInterval(countdownTimer);
+        }
+    </script>
+</body>
 </html>
